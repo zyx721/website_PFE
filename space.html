@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dima AI - مصمم التدفقات الكونية المتقدم</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        :root {
+            --gradient-start: #1A2980; /* Deep Indigo */
+            --gradient-end: #26D0CE;   /* Vibrant Teal */
+            --gradient-start-rgb: 26, 41, 128;
+            --gradient-end-rgb: 38, 208, 206;
+            --color-nebula-highlight-rgb: 61, 82, 160; /* Defined from usage */
+            --color-nebula-deep-rgb: 5, 8, 15;       /* Defined from --color-nebula-deep */
+            --color-nebula-mid-rgb: 13, 19, 33;    /* Defined from --color-nebula-mid */
+            --color-background-panel-solid-rgb: 16, 24, 43; /* Defined from --color-background-panel-solid */
+
+
+            --color-nebula-deep: #05080F; /* Even deeper space */
+            --color-nebula-mid: #0D1321;  /* Canvas base (Now less prominent visually for canvas itself) */
+            --color-nebula-highlight: #3D52A0; 
+            --color-star: #FFFFFF;
+            
+            --color-primary-dark: var(--gradient-start);
+            --color-primary-light: var(--gradient-end);
+
+            --color-background-panel: rgba(16, 24, 43, 0.85); /* Semi-transparent panel */
+            --color-background-panel-solid: #10182B; /* Solid for some elements */
+            --color-background-node: rgba(21, 30, 51, 0.9); /* Node background */
+            --color-background-node-header: rgba(30, 42, 71, 0.9);
+
+            --color-text-light: #EAEFF3;
+            --color-text-primary-on-dark: #FFFFFF;
+            --color-text-medium: #A0AEC0;
+            --color-text-muted: #718096;
+            --color-accent: #FBBF24; /* Gold/Yellow Accent */
+            --color-focus-ring: #4DA8DA;
+
+            --font-primary: 'Manrope', 'Cairo', sans-serif;
+            --font-secondary: 'Inter', 'Cairo', sans-serif;
+
+            --border-radius-sm: 6px;
+            --border-radius-md: 10px; /* Slightly rounder */
+            --border-radius-lg: 14px;
+
+            --shadow-node: 0 6px 20px rgba(0,0,0,0.3), 0 0 0 1px rgba(var(--color-nebula-highlight-rgb), 0.2);
+            --shadow-node-active: 0 10px 30px rgba(var(--gradient-end-rgb), 0.4), 0 0 0 2px var(--gradient-end);
+
+            --nodes-palette-width: 300px; /* Wider palette */
+            --properties-panel-width: 340px; /* Wider properties */
+            --header-height: 65px;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=Cairo:wght@400;600;700;800&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-secondary);
+            color: var(--color-text-light);
+            line-height: 1.6;
+            background-color: var(--color-nebula-deep); 
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        
+        .flow-builder-header {
+            height: var(--header-height);
+            background-color: var(--color-background-panel-solid);
+            border-bottom: 1px solid rgba(var(--color-nebula-highlight-rgb), 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 100; 
+        }
+        .flow-title-section .flow-name {
+            font-size: 1.3rem; font-weight: 700;
+            padding: 5px 10px;
+        }
+        .btn-flow-action { 
+            background-color: var(--color-nebula-highlight);
+            color: var(--color-text-light);
+            border: 1px solid transparent;
+            padding: 10px 18px; 
+            border-radius: var(--border-radius-sm);
+            font-weight: 600; font-size: 0.9rem; cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex; align-items: center; gap: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+        .btn-flow-action:hover {
+            background-color: color-mix(in srgb, var(--color-nebula-highlight), #fff 15%);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transform: translateY(-1px);
+        }
+        .btn-flow-action.primary {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            box-shadow: 0 4px 12px rgba(var(--gradient-end-rgb), 0.25);
+        }
+        .btn-flow-action.primary:hover { filter: brightness(1.15); }
+
+
+        .flow-builder-main { display: flex; flex-grow: 1; overflow: hidden; position: relative; } /* Added position:relative for absolute sidebars */
+
+        /* --- Sidebars Common Style --- */
+        .flow-sidebar {
+            position: absolute; /* For smooth sliding */
+            top: 0;
+            height: 100%;
+            background-color: var(--color-background-panel);
+            backdrop-filter: blur(10px); 
+            padding: 20px;
+            overflow-y: auto;
+            transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1), 
+                        width 0.35s cubic-bezier(0.25, 0.1, 0.25, 1), 
+                        padding 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+            box-shadow: 0 0 25px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            z-index: 50;
+        }
+        .sidebar-header {
+            padding-bottom: 15px; margin-bottom: 20px;
+            border-bottom: 1px solid rgba(var(--color-nebula-highlight-rgb),0.15);
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .sidebar-header h3 { font-size: 1.15rem; color: var(--color-text-light); margin: 0; font-weight: 700;}
+        .sidebar-toggle-btn-inner { background:none; border:none; color: var(--color-text-muted); cursor:pointer; font-size: 1rem;}
+        .sidebar-toggle-btn-inner:hover { color: var(--color-text-light); }
+
+
+        /* Nodes Palette (Right Sidebar in RTL) */
+        .nodes-palette-sidebar {
+            right: 0; /* RTL */
+            width: var(--nodes-palette-width);
+            border-left: 1px solid rgba(var(--color-nebula-highlight-rgb), 0.2);
+            transform: translateX(0);
+        }
+        .nodes-palette-sidebar.collapsed {
+            width: 0; 
+            padding-right: 0; padding-left: 0; /* Ensure padding is zeroed */
+            overflow: hidden; 
+            border-left: none;
+            transform: translateX(100%); /* Slide out to the right for RTL */
+        }
+        
+        .palette-search input { 
+            width: 100%; /* Ensure it takes full width of its container */
+            padding: 12px 15px;
+            background-color: rgba(var(--color-nebula-deep-rgb), 0.5);
+            border: 1px solid var(--color-nebula-highlight);
+            border-radius: var(--border-radius-sm);
+            color: var(--color-text-light);
+            font-size: 0.95rem;
+        }
+        .node-category-title { color: var(--gradient-end); font-weight: 700; font-size: .9rem; margin-top: 15px; }
+
+        .palette-node-item { 
+            padding: 12px 15px;
+            background-color: rgba(var(--color-nebula-mid-rgb), 0.5);
+            border: 1px solid transparent;
+            margin-bottom: 10px;
+            border-radius: var(--border-radius-sm);
+            cursor: grab;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+        .palette-node-item:hover {
+            background-color: var(--color-nebula-highlight);
+            border-color: var(--gradient-end);
+        }
+        .palette-node-item i { color: var(--gradient-end); font-size: 1.1rem; margin-left: 8px; } /* RTL: margin-left */
+        .palette-node-item .node-name { font-weight: 600; font-size: 0.95rem;}
+
+        /* Canvas Area */
+        .flow-canvas-container { 
+            flex-grow: 1; 
+            position: relative; 
+            display: flex; 
+            overflow: hidden; 
+            background-color: var(--color-nebula-deep); /* Base deep space color */
+        }
+        .flow-canvas {
+            width: 4000px; height: 3000px; 
+            background-color: transparent; /* REMOVED board background */
+            position: relative;
+            transform-origin: 0 0;
+            transition: transform 0.1s linear; 
+        }
+        #starfield-canvas { position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index: 0;}
+
+        .canvas-toolbar { 
+            position: absolute; /* Keep toolbar positioned relative to canvas container */
+            bottom: 25px; left: 25px; /* RTL */
+            background-color: rgba(var(--color-background-panel-solid-rgb), 0.9);
+            padding: 10px; border-radius: var(--border-radius-md);
+            z-index: 10; /* Above starfield, below nodes when dragging */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .canvas-toolbar button { 
+            background: none; border: none; color: var(--color-text-medium); cursor: pointer;
+            font-size: 1.1rem; padding: 10px; transition: color 0.2s ease;
+        }
+        .canvas-toolbar button:hover { color: var(--color-text-light); }
+
+
+        /* --- DIMA AI ORB NODE (Special) --- */
+        .flow-node.dima-ai-orb-node {
+            width: 150px; height: 150px; 
+            padding: 0; 
+            background: transparent !important; 
+            border: none !important;
+            box-shadow: none !important;
+            display: flex; align-items: center; justify-content: center;
+            cursor: grab;
+            transform-style: preserve-3d; 
+            z-index: 5; /* Above starfield, below toolbar potentially */
+        }
+        .dima-ai-orb-node.dragging .dima-orb-visual { 
+            transform: scale(1.15) rotateY(15deg);
+            filter: drop-shadow(0 0 25px var(--gradient-end));
+        }
+        .dima-orb-visual { 
+            width: 100px; height: 100px; 
+            position: relative;
+            display: flex; align-items: center; justify-content: center;
+            transform-style: preserve-3d;
+            animation: floatDimaOrb 10s ease-in-out infinite;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+        @keyframes floatDimaOrb {
+            0%, 100% { transform: translateY(0px) rotateY(0deg) rotateX(5deg); }
+            50% { transform: translateY(-8px) rotateY(20deg) rotateX(-5deg); }
+        }
+        .dima-orb-core {
+            width: 45px; height: 45px; 
+            background: radial-gradient(ellipse at center, var(--gradient-end) 30%, var(--gradient-start) 80%);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(var(--gradient-end-rgb), 0.8), 
+                        0 0 25px rgba(var(--gradient-start-rgb), 0.6),
+                        inset 0 0 10px rgba(255,255,255,0.4);
+            animation: pulseDimaCore 3.5s ease-in-out infinite alternate;
+            position: relative; z-index: 2;
+        }
+        @keyframes pulseDimaCore { 
+            from { transform: scale(0.92); box-shadow: 0 0 12px rgba(var(--gradient-end-rgb),0.7), 0 0 20px rgba(var(--gradient-start-rgb),0.5), inset 0 0 8px rgba(255,255,255,0.3); }
+            to   { transform: scale(1); box-shadow: 0 0 20px rgba(var(--gradient-end-rgb),0.9), 0 0 30px rgba(var(--gradient-start-rgb),0.7), inset 0 0 15px rgba(255,255,255,0.5); }
+        }
+        .dima-orb-ring {
+            position: absolute; border-radius: 50%; border: 1.5px solid; opacity: 0.6;
+            animation: rotateDimaRing 12s linear infinite;
+        }
+        .dima-orb-ring.r1 { width: 70px; height: 70px; border-color: rgba(var(--gradient-end-rgb), 0.7); animation-duration: 12s; transform: rotateX(65deg) rotateY(15deg); }
+        .dima-orb-ring.r2 { width: 90px; height: 90px; border-color: rgba(var(--gradient-start-rgb), 0.6); animation-duration: 15s; animation-direction: reverse; transform: rotateX(55deg) rotateY(-25deg); }
+        .dima-orb-ring.r3 { width: 110px; height: 110px; border-color: rgba(var(--color-nebula-highlight-rgb), 0.5); animation-duration: 18s; transform: rotateX(45deg) rotateY(35deg); }
+        
+        /* Combined and simplified rotate animations */
+        @keyframes rotateDimaRing1 { from { transform: rotateX(65deg) rotateY(15deg) rotateZ(0deg); } to { transform: rotateX(65deg) rotateY(15deg) rotateZ(360deg); } }
+        @keyframes rotateDimaRing2 { from { transform: rotateX(55deg) rotateY(-25deg) rotateZ(0deg); } to { transform: rotateX(55deg) rotateY(-25deg) rotateZ(360deg); } }
+        @keyframes rotateDimaRing3 { from { transform: rotateX(45deg) rotateY(35deg) rotateZ(0deg); } to { transform: rotateX(45deg) rotateY(35deg) rotateZ(360deg); } }
+        .dima-orb-ring.r1 { animation-name: rotateDimaRing1; }
+        .dima-orb-ring.r2 { animation-name: rotateDimaRing2; animation-direction: reverse;}
+        .dima-orb-ring.r3 { animation-name: rotateDimaRing3; }
+
+        /* General Nodes on Canvas */
+        .flow-node { 
+            position: absolute;
+            background-color: var(--color-background-node);
+            backdrop-filter: blur(8px);
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-node);
+            width: 240px; 
+            border: 1px solid rgba(var(--color-nebula-highlight-rgb), 0.3);
+            transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.1s ease; /* Keep transform transition for dragging */
+            user-select: none;
+            display: flex; flex-direction: column; 
+            z-index: 5; /* Default z-index for nodes */
+        }
+        .flow-node:not(.dima-ai-orb-node):active:not(.no-drag-active) { cursor: grabbing; }
+        .flow-node.selected:not(.dima-ai-orb-node) {
+            box-shadow: var(--shadow-node-active);
+            border-color: var(--gradient-end);
+        }
+        .flow-node .node-header { 
+            background-color: var(--color-background-node-header);
+            padding: 10px 12px;
+            border-bottom: 1px solid rgba(var(--color-nebula-highlight-rgb),0.15);
+            border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
+            display: flex; align-items: center; cursor: grab; /* Make header draggable */
+        }
+        .flow-node .node-icon { margin-left: 10px; /* RTL */ font-size: 1.1rem; width: 20px; text-align: center;}
+        .flow-node .node-title { font-weight: 700; font-size: 1rem; color: var(--color-text-light); flex-grow: 1; }
+        .flow-node .node-content { padding: 12px; font-size: 0.9rem; color: var(--color-text-medium); flex-grow: 1; }
+        .flow-node .node-content input, .flow-node .node-content textarea {
+            width: 100%;
+            background-color: rgba(var(--color-nebula-deep-rgb),0.6);
+            border: 1px solid var(--color-nebula-highlight);
+            border-radius: var(--border-radius-sm);
+            padding: 8px;
+            color: var(--color-text-light);
+        }
+        
+        .node-port {
+            position: absolute; /* Crucial for positioning relative to node */
+            width: 14px; height: 14px; 
+            background-color: var(--color-nebula-mid);
+            border: 2px solid var(--color-nebula-highlight);
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(var(--color-nebula-highlight-rgb),0.3);
+            transition: all 0.2s ease;
+            cursor: crosshair;
+            z-index: 10; /* Above node body */
+        }
+        .node-port:hover {
+            background-color: var(--gradient-end);
+            border-color: var(--gradient-start);
+            transform: scale(1.2);
+            box-shadow: 0 0 8px rgba(var(--gradient-end-rgb),0.5);
+        }
+        .flow-node:not(.dima-ai-orb-node) > .node-port.input { right: -8px; top: 50%; transform: translateY(-50%);} /* RTL */
+        .flow-node:not(.dima-ai-orb-node) > .node-port.output { left: -8px; top: 50%; transform: translateY(-50%);} /* RTL */
+        
+        .dima-ai-orb-node .node-port.output { left: 50%; top: -8px; transform: translateX(-50%);} 
+        .dima-ai-orb-node .node-port.input  { left: 50%; bottom: -8px; transform: translateX(-50%); } 
+
+
+        #connectionsSvgLayer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+        .connection-line {
+            stroke: var(--color-nebula-highlight);
+            stroke-width: 3px; 
+            fill: none;
+            stroke-linecap: round;
+            filter: drop-shadow(0 0 2px rgba(var(--color-nebula-highlight-rgb),0.5));
+            animation: drawLine 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+        }
+        .connection-line.active-drawing {
+            stroke: url(#lineGradient); 
+            stroke-width: 4px;
+            stroke-dasharray: 10 5;
+            animation: flowCable 1s linear infinite;
+            filter: drop-shadow(0 0 5px var(--gradient-end));
+        }
+        @keyframes flowCable { to { stroke-dashoffset: -15; } }
+        @keyframes drawLine { from { stroke-dashoffset: 1000; stroke-dasharray: 1000; } to { stroke-dashoffset: 0; stroke-dasharray: 1000;} }
+
+
+        /* Properties Inspector (Left Sidebar in RTL) */
+        .properties-inspector-sidebar {
+            left: 0; /* RTL */
+            width: 0; /* Start collapsed */
+            padding-right: 0; padding-left: 0;
+            border-right: none; /* Start without border */
+            transform: translateX(-100%); /* Start off-screen to the left */
+            overflow: hidden;
+        }
+        .properties-inspector-sidebar.visible {
+            width: var(--properties-panel-width);
+            padding: 20px;
+            transform: translateX(0); /* Slide in */
+            border-right: 1px solid rgba(var(--color-nebula-highlight-rgb), 0.2);
+            overflow-y: auto; /* Restore scroll when visible */
+        }
+        .inspector-content .form-group { margin-bottom: 15px; }
+        .inspector-content .form-group label { display: block; margin-bottom: 5px; font-size: 0.9rem; color: var(--color-text-medium); }
+        .inspector-content .form-group input,
+        .inspector-content .form-group select,
+        .inspector-content .form-group textarea {
+            width: 100%;
+            background-color: rgba(var(--color-nebula-deep-rgb), 0.5);
+            border: 1px solid var(--color-nebula-highlight);
+            border-radius: var(--border-radius-sm);
+            padding: 10px; font-size: 0.95rem;
+            color: var(--color-text-light);
+        }
+        .no-node-selected { text-align: center; padding-top: 30px; color: var(--color-text-muted);}
+        .no-node-selected i { font-size: 2.5rem; color: var(--color-nebula-highlight); margin-bottom: 10px; display: block;}
+
+    </style>
+</head>
+<body>
+
+    <header class="flow-builder-header">
+         <div class="flow-title-section">
+            <a href="dashboard.html" class="back-to-dashboard" title="العودة إلى لوحة التحكم"><i class="fas fa-arrow-right"></i></a>
+            <input type="text" class="flow-name" value="تدفق الترحيب الكوني بالعملاء">
+        </div>
+        <div class="flow-actions">
+            <button class="btn-flow-action" id="toggleNodesPaletteBtn"><i class="fas fa-shapes"></i> <span class="btn-text">العناصر</span></button>
+            <button class="btn-flow-action" id="togglePropertiesPanelBtn"><i class="fas fa-sliders-h"></i> <span class="btn-text">الخصائص</span></button>
+            <button class="btn-flow-action primary"><i class="fas fa-save"></i> <span class="btn-text">حفظ التدفق</span></button>
+            <button class="btn-flow-action primary" style="background: var(--color-success);"><i class="fas fa-rocket"></i> <span class="btn-text">نشر</span></button>
+        </div>
+    </header>
+
+    <div class="flow-builder-main">
+        <aside class="properties-inspector-sidebar flow-sidebar" id="propertiesInspector">
+            <div class="sidebar-header">
+                 <h3>خصائص العنصر</h3>
+                 <button class="sidebar-toggle-btn-inner" id="closePropertiesPanelBtn" title="إغلاق الخصائص"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="inspector-content" id="inspectorNodeContent">
+                <div class="no-node-selected">
+                    <i class="fas fa-hand-pointer"></i>
+                    <p>حدد عنصراً من مجرة التدفق لعرض خصائصه هنا.</p>
+                </div>
+            </div>
+        </aside>
+
+        <div class="flow-canvas-container" id="flowCanvasContainer">
+            <canvas id="starfield-canvas"></canvas> 
+            <svg id="connectionsSvgLayer">
+                <defs>
+                    <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:var(--gradient-start); stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:var(--gradient-end); stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+            </svg>
+            <div class="flow-canvas" id="flowCanvas">
+                <!-- Dima AI Orb Node -->
+                <div class="flow-node dima-ai-orb-node" id="dimaNode" style="top: 200px; right: 450px; transform: translate(0,0);" data-node-id="dima-core" data-node-type="core.dima-ai" data-node-name="محرك Dima AI">
+                    <div class="dima-orb-visual">
+                        <div class="dima-orb-core"></div>
+                        <div class="dima-orb-ring r1"></div>
+                        <div class="dima-orb-ring r2"></div>
+                        <div class="dima-orb-ring r3"></div>
+                    </div>
+                    <div class="node-port output" data-port-id="out-main"></div>
+                    <div class="node-port input" data-port-id="in-main"></div>
+                </div>
+
+                <div class="flow-node" id="node1" style="top: 80px; right: 150px; transform: translate(0,0);" data-node-id="trigger-insta" data-node-type="trigger" data-node-name="رسالة Instagram جديدة">
+                    <div class="node-header">
+                        <i class="fab fa-instagram node-icon" style="color: #E1306C;"></i> <span class="node-title">رسالة Instagram</span>
+                    </div>
+                    <div class="node-content"> <p>عند استلام رسالة جديدة.</p> </div>
+                    <div class="node-port output" data-port-id="out1"></div>
+                </div>
+
+                <div class="flow-node selected" id="node3" style="top: 350px; right: 180px; transform: translate(0,0);" data-node-id="send-reply" data-node-type="action" data-node-name="إرسال رد">
+                     <div class="node-header">
+                        <i class="fas fa-paper-plane node-icon" style="color: var(--color-success);"></i> <span class="node-title">إرسال رد</span>
+                    </div>
+                    <div class="node-content">
+                        <label for="node3-message" style="font-size:0.85rem; color: var(--color-text-muted);">نص الرسالة:</label>
+                        <textarea id="node3-message" rows="2" placeholder="اكتب رسالتك هنا...">أهلاً بك في مجرتنا! {{user_name}}</textarea>
+                    </div>
+                    <div class="node-port input" data-port-id="in1"></div>
+                </div>
+            </div>
+            <div class="canvas-toolbar">
+                 <button id="zoomInBtn" title="تكبير"><i class="fas fa-search-plus"></i></button>
+                <button id="zoomOutBtn" title="تصغير"><i class="fas fa-search-minus"></i></button>
+                <button id="resetViewBtn" title="إعادة تعيين العرض"><i class="fas fa-compress-alt"></i></button> 
+                <button id="centerCanvasBtn" title="توسيط المجرة"><i class="fas fa-bullseye"></i></button>
+            </div>
+        </div>
+
+        <aside class="nodes-palette-sidebar flow-sidebar" id="nodesPalette">
+             <div class="sidebar-header">
+                 <h3>عناصر التدفق</h3>
+                 <button class="sidebar-toggle-btn-inner" id="closeNodesPaletteBtn" title="إغلاق العناصر"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="palette-search"> <input type="text" placeholder="ابحث في مجرة العناصر..."> </div>
+            <div class="node-category">
+                <h3 class="node-category-title">المحفزات الكونية (Triggers)</h3>
+                <div class="palette-node-item" draggable="true" data-node-type="trigger.instagram" data-node-name="رسالة Instagram جديدة">
+                    <i class="fab fa-instagram" style="color: #C13584;"></i> <span class="node-name">رسالة Instagram</span>
+                </div>
+                 <div class="palette-node-item" draggable="true" data-node-type="core.dima-ai" data-node-name="محرك Dima AI">
+                    <i class="fas fa-atom" style="color:var(--gradient-end)"></i> <span class="node-name">محرك Dima AI</span>
+                </div>
+            </div>
+             <div class="node-category">
+                <h3 class="node-category-title">الإجراءات النجمية (Actions)</h3>
+                <div class="palette-node-item" draggable="true" data-node-type="action.send-reply" data-node-name="إرسال رد">
+                    <i class="fas fa-paper-plane" style="color: var(--color-success);"></i> <span class="node-name">إرسال رد</span>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+           <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const flowCanvas = document.getElementById('flowCanvas');
+        const flowCanvasContainer = document.getElementById('flowCanvasContainer');
+        const connectionsSvgLayer = document.getElementById('connectionsSvgLayer');
+        const nodesPalette = document.getElementById('nodesPalette');
+        const propertiesInspector = document.getElementById('propertiesInspector');
+        const toggleNodesPaletteBtn = document.getElementById('toggleNodesPaletteBtn');
+        const closeNodesPaletteBtn = document.getElementById('closeNodesPaletteBtn');
+        const togglePropertiesPanelBtn = document.getElementById('togglePropertiesPanelBtn');
+        const closePropertiesPanelBtn = document.getElementById('closePropertiesPanelBtn');
+        
+        const zoomInBtn = document.getElementById('zoomInBtn');
+        const zoomOutBtn = document.getElementById('zoomOutBtn');
+        const resetViewBtn = document.getElementById('resetViewBtn');
+        const centerCanvasBtn = document.getElementById('centerCanvasBtn');
+
+        let scale = 1;
+        let panX = 0; 
+        let panY = 0;
+        let isPanning = false;
+        let lastPanX_panning, lastPanY_panning; // Renamed to avoid conflict with node drag's initialMouse
+
+        let draggedNode = null;
+        let initialMouseX_drag, initialMouseY_drag; // For node dragging
+        let initialNodeTransformX, initialNodeTransformY;
+
+        let isDrawingConnection = false;
+        let activeLine = null;
+        let startPort = null;
+        const connections = [];
+
+        // --- Starfield Background ---
+        const starfieldCanvas = document.getElementById('starfield-canvas');
+        const sfCtx = starfieldCanvas.getContext('2d');
+        let stars = [];
+        const numStars = 250; 
+
+        function resizeStarfield() {
+            starfieldCanvas.width = flowCanvasContainer.offsetWidth;
+            starfieldCanvas.height = flowCanvasContainer.offsetHeight;
+            stars = []; 
+            for (let i = 0; i < numStars; i++) {
+                stars.push({
+                    x: Math.random() * starfieldCanvas.width,
+                    y: Math.random() * starfieldCanvas.height,
+                    radius: Math.random() * 1.3 + 0.4, 
+                    alpha: Math.random() * 0.8 + 0.2, 
+                    vx: (Math.random() - 0.5) * 0.05, // Slower drift for parallax
+                    vy: (Math.random() - 0.5) * 0.05  // Slower drift for parallax
+                });
+            }
+        }
+        function drawStarfield() {
+            sfCtx.clearRect(0, 0, starfieldCanvas.width, starfieldCanvas.height);
+            stars.forEach(star => {
+                sfCtx.beginPath();
+                sfCtx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                sfCtx.fillStyle = `rgba(220, 220, 255, ${star.alpha})`;
+                sfCtx.fill();
+
+                // Star movement should be relative to its own plane,
+                // but influenced slightly by canvas pan for parallax.
+                // The (1/scale) factor was making them move too fast when zoomed out.
+                // Let's simplify: stars move, and their *apparent* speed changes with zoom.
+                star.x += star.vx; 
+                star.y += star.vy;
+
+                // Wrap stars around - adjust for pan effect so they don't all leave view
+                const apparentX = star.x - panX * 0.02; // Minor parallax with pan
+                const apparentY = star.y - panY * 0.02;
+
+                if (apparentX < -star.radius * 2) star.x = starfieldCanvas.width + star.radius * 2;
+                if (apparentX > starfieldCanvas.width + star.radius*2) star.x = -star.radius*2;
+                if (apparentY < -star.radius*2) star.y = starfieldCanvas.height + star.radius*2;
+                if (apparentY > starfieldCanvas.height + star.radius*2) star.y = -star.radius*2;
+            });
+            requestAnimationFrame(drawStarfield);
+        }
+        resizeStarfield();
+        drawStarfield();
+        window.addEventListener('resize', resizeStarfield);
+
+        // --- Sidebar Toggles ---
+        // ... (sidebar toggle JS remains the same)
+        if (toggleNodesPaletteBtn) {
+            toggleNodesPaletteBtn.addEventListener('click', () => {
+                const isCollapsed = nodesPalette.classList.contains('collapsed');
+                nodesPalette.classList.toggle('collapsed');
+                toggleNodesPaletteBtn.querySelector('.btn-text').textContent = isCollapsed ? 'إخفاء العناصر' : 'العناصر';
+            });
+        }
+        if (closeNodesPaletteBtn) {
+            closeNodesPaletteBtn.addEventListener('click', () => {
+                 nodesPalette.classList.add('collapsed');
+                 toggleNodesPaletteBtn.querySelector('.btn-text').textContent = 'العناصر';
+            });
+        }
+        if (togglePropertiesPanelBtn) {
+            togglePropertiesPanelBtn.addEventListener('click', () => {
+                const isVisible = propertiesInspector.classList.contains('visible');
+                propertiesInspector.classList.toggle('visible');
+                togglePropertiesPanelBtn.querySelector('.btn-text').textContent = isVisible ? 'الخصائص' : 'إخفاء الخصائص';
+            });
+        }
+        if (closePropertiesPanelBtn) {
+            closePropertiesPanelBtn.addEventListener('click', () => {
+                propertiesInspector.classList.remove('visible');
+                togglePropertiesPanelBtn.querySelector('.btn-text').textContent = 'الخصائص';
+            });
+        }
+        nodesPalette.classList.remove('collapsed'); 
+        toggleNodesPaletteBtn.querySelector('.btn-text').textContent = 'إخفاء العناصر';
+        togglePropertiesPanelBtn.querySelector('.btn-text').textContent = 'الخصائص';
+
+
+        // --- Canvas Pan & Zoom ---
+        function applyTransform() {
+            flowCanvas.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+            redrawAllConnections(); // Crucial: redraw lines on every transform change
+        }
+
+        if (zoomInBtn) zoomInBtn.addEventListener('click', () => { scale = Math.min(3, scale * 1.2); applyTransform(); });
+        if (zoomOutBtn) zoomOutBtn.addEventListener('click', () => { scale = Math.max(0.2, scale / 1.2); applyTransform(); });
+        
+        if (resetViewBtn) resetViewBtn.addEventListener('click', () => { 
+            scale = 1; 
+            const containerRect = flowCanvasContainer.getBoundingClientRect();
+            const nodes = Array.from(flowCanvas.querySelectorAll('.flow-node'));
+            if (nodes.length > 0) {
+                let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+                nodes.forEach(node => {
+                    // Get node's position and size relative to the *untransformed* flowCanvas origin
+                    const nodeStyle = window.getComputedStyle(node);
+                    const transformMatrix = new DOMMatrix(nodeStyle.transform);
+                    const nodeTop = parseFloat(node.style.top || 0); // Base position
+                    const nodeRight = parseFloat(node.style.right || 0); // Base position (RTL)
+                    
+                    // Effective top-left in flowCanvas's own coordinate system BEFORE pan/scale
+                    // For RTL, 'right' is the reference. We need 'left' for bounding box.
+                    // Assuming flowCanvas.offsetWidth is its defined large width (e.g., 4000px)
+                    const nodeLeft = flowCanvas.offsetWidth - nodeRight - node.offsetWidth; 
+                    
+                    const currentX = nodeLeft + transformMatrix.e; // Add transform.e
+                    const currentY = nodeTop + transformMatrix.f;   // Add transform.f
+
+                    minX = Math.min(minX, currentX);
+                    minY = Math.min(minY, currentY);
+                    maxX = Math.max(maxX, currentX + node.offsetWidth);
+                    maxY = Math.max(maxY, currentY + node.offsetHeight);
+                });
+                
+                const contentWidth = (maxX - minX);
+                const contentHeight = (maxY - minY);
+
+                // Calculate new panX and panY to center this content in the viewport
+                // Target center of viewport: containerRect.width / 2, containerRect.height / 2
+                // Target center of content in canvas coords: (minX + contentWidth / 2)
+                // We want: panX + (minX + contentWidth / 2) * scale = containerRect.width / 2
+                panX = containerRect.width / 2 - (minX + contentWidth / 2) * scale;
+                panY = containerRect.height / 2 - (minY + contentHeight / 2) * scale;
+
+            } else { 
+                 panX = containerRect.width / 2 - (flowCanvas.offsetWidth / 4) * scale; 
+                 panY = containerRect.height / 2 - (flowCanvas.offsetHeight / 4) * scale;
+            }
+            applyTransform(); 
+        });
+
+        if (centerCanvasBtn) centerCanvasBtn.addEventListener('click', () => {
+            const dimaNode = document.getElementById('dimaNode');
+            if (dimaNode) {
+                 const containerRect = flowCanvasContainer.getBoundingClientRect();
+                 // Dima node's center relative to untransformed flowCanvas origin
+                 const dimaStyle = window.getComputedStyle(dimaNode);
+                 const dimaTransform = new DOMMatrix(dimaStyle.transform);
+                 const dimaBaseTop = parseFloat(dimaNode.style.top || 0);
+                 const dimaBaseRight = parseFloat(dimaNode.style.right || 0);
+                 const dimaBaseLeft = flowCanvas.offsetWidth - dimaBaseRight - dimaNode.offsetWidth;
+
+                 const dimaCenterXcanvas = dimaBaseLeft + dimaTransform.e + dimaNode.offsetWidth / 2;
+                 const dimaCenterYcanvas = dimaBaseTop + dimaTransform.f + dimaNode.offsetHeight / 2;
+
+                 panX = containerRect.width / 2 - dimaCenterXcanvas * scale;
+                 panY = containerRect.height / 2 - dimaCenterYcanvas * scale;
+            } else { 
+                 panX = flowCanvasContainer.offsetWidth / 2 - (flowCanvas.offsetWidth / 4) * scale;
+                 panY = flowCanvasContainer.offsetHeight / 2 - (flowCanvas.offsetHeight / 4) * scale;
+            }
+            applyTransform();
+        });
+        
+        flowCanvasContainer.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            const rect = flowCanvasContainer.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left; 
+            const mouseY = e.clientY - rect.top;
+
+            // Mouse position in canvas coordinates (before zoom)
+            const mouseBeforeZoomX = (mouseX - panX) / scale;
+            const mouseBeforeZoomY = (mouseY - panY) / scale;
+
+            const delta = e.deltaY > 0 ? 1 / 1.1 : 1.1;
+            const oldScale = scale;
+            scale = Math.max(0.1, Math.min(5, scale * delta));
+
+            panX = mouseX - mouseBeforeZoomX * scale;
+            panY = mouseY - mouseBeforeZoomY * scale;
+            
+            applyTransform(); // This will call redrawAllConnections
+        }, { passive: false });
+
+        flowCanvasContainer.addEventListener('mousedown', (e) => {
+            if (e.target === flowCanvasContainer || e.target === flowCanvas || e.target === starfieldCanvas) {
+                if (e.buttons === 1) { 
+                    isPanning = true;
+                    flowCanvasContainer.style.cursor = 'grabbing';
+                    lastPanX_panning = e.clientX;
+                    lastPanY_panning = e.clientY;
+                }
+            }
+        });
+        document.addEventListener('mousemove', (e) => { 
+            if (isPanning) {
+                e.preventDefault();
+                const dx = e.clientX - lastPanX_panning;
+                const dy = e.clientY - lastPanY_panning;
+                panX += dx;
+                panY += dy;
+                lastPanX_panning = e.clientX;
+                lastPanY_panning = e.clientY;
+                applyTransform(); // This will call redrawAllConnections
+            }
+            // Node dragging and Connection drawing mousemove are handled below
+        });
+        document.addEventListener('mouseup', (e) => { 
+            if (isPanning) {
+                isPanning = false;
+                flowCanvasContainer.style.cursor = 'default';
+            }
+        });
+
+        // --- Port and Connection Logic ---
+        function getPortPosition(portElement) {
+            // Get port's bounding box in viewport coordinates
+            const portRect = portElement.getBoundingClientRect();
+            // Get SVG layer's bounding box in viewport coordinates
+            const svgRect = connectionsSvgLayer.getBoundingClientRect();
+
+            // Calculate port center relative to SVG layer's top-left corner
+            // This is the coordinate in the SVG's own (unscaled, untranslated) system.
+            const x = (portRect.left + portRect.width / 2) - svgRect.left;
+            const y = (portRect.top + portRect.height / 2) - svgRect.top;
+            
+            return { x, y };
+        }
+
+        // ... (calculateActiveLinePath and calculatePermanentBezierPath remain the same)
+        function calculateActiveLinePath(x1, y1, x2, y2) {
+            const dx = Math.abs(x1 - x2) * 0.3 + 30;
+            let cp1x = x1 - dx; 
+            let cp1y = y1;
+            let cp2x = x2 + dx; 
+            let cp2y = y2;
+            if (startPort && startPort.closest('.dima-ai-orb-node') && startPort.classList.contains('output')) {
+                cp1x = x1;
+                cp1y = y1 - dx; 
+                cp2x = x2; 
+                cp2y = y2 + (y1 > y2 ? -dx : dx); // Adjust control point based on mouse Y relative to start Y
+            }  else if (startPort && startPort.closest('.dima-ai-orb-node') && startPort.classList.contains('input')) { // if dragging from an orb input (though typically we drag from output)
+                cp1x = x1;
+                cp1y = y1 + dx; 
+                cp2x = x2;
+                cp2y = y2 - (y1 < y2 ? -dx : dx);
+            }
+
+
+            return `M${x1},${y1} C${cp1x},${cp1y} ${cp2x},${cp2y} ${x2},${y2}`;
+        }
+        
+        function calculatePermanentBezierPath(startPos, endPos, startPortEl, endPortEl) {
+            const x1 = startPos.x, y1 = startPos.y;
+            const x2 = endPos.x, y2 = endPos.y;
+            let c1x = x1, c1y = y1, c2x = x2, c2y = y2;
+            
+            const defaultCurveiness = Math.min(80, Math.max(30, Math.abs(x1-x2)*0.4, Math.abs(y1-y2)*0.4));
+
+            const startNode = startPortEl.closest('.flow-node');
+            if (startNode.classList.contains('dima-ai-orb-node') && startPortEl.classList.contains('output')) { // Dima Orb Top Output
+                c1x = x1; c1y = y1 - defaultCurveiness;
+            } else if (startPortEl.classList.contains('output')) { // Standard node output (left side in RTL)
+                c1x = x1 - defaultCurveiness;
+            }
+
+            const endNode = endPortEl.closest('.flow-node');
+            if (endNode.classList.contains('dima-ai-orb-node') && endPortEl.classList.contains('input')) { // Dima Orb Bottom Input
+                c2x = x2; c2y = y2 + defaultCurveiness;
+            } else if (endPortEl.classList.contains('input')) { // Standard node input (right side in RTL)
+                c2x = x2 + defaultCurveiness;
+            }
+            return `M${x1},${y1} C${c1x},${c1y} ${c2x},${c2y} ${x2},${y2}`;
+        }
+
+
+        function updateConnectionsForNode(nodeElement) {
+            const nodeId = nodeElement.dataset.nodeId;
+            connections.forEach(conn => {
+                if (conn.startNodeId === nodeId || conn.endNodeId === nodeId) {
+                    const startPos = getPortPosition(conn.startPortElement);
+                    const endPos = getPortPosition(conn.endPortElement);
+                    conn.lineElement.setAttribute('d', calculatePermanentBezierPath(startPos, endPos, conn.startPortElement, conn.endPortElement));
+                }
+            });
+        }
+
+        function redrawAllConnections() {
+            requestAnimationFrame(() => { // Defer to next frame to ensure DOM updates are settled
+                connections.forEach(conn => {
+                    const startPos = getPortPosition(conn.startPortElement);
+                    const endPos = getPortPosition(conn.endPortElement);
+                    conn.lineElement.setAttribute('d', calculatePermanentBezierPath(startPos, endPos, conn.startPortElement, conn.endPortElement));
+                });
+            });
+        }
+
+        // --- Node Dragging & Connection Initiating Mousedown ---
+        flowCanvas.addEventListener('mousedown', (e) => {
+            if (e.buttons !== 1) return; 
+
+            const targetPort = e.target.closest('.node-port.output');
+            const targetNodeHeader = e.target.closest('.node-header');
+            const targetDimaOrbVisual = e.target.closest('.dima-ai-orb-node .dima-orb-visual');
+            const targetNode = e.target.closest('.flow-node');
+
+            if (targetPort) { 
+                e.stopPropagation(); 
+                isDrawingConnection = true;
+                startPort = targetPort;
+                
+                const startPos = getPortPosition(startPort);
+                
+                activeLine = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                activeLine.setAttribute('class', 'connection-line active-drawing');
+                activeLine.setAttribute('d', `M${startPos.x},${startPos.y} L${startPos.x},${startPos.y}`);
+                connectionsSvgLayer.appendChild(activeLine);
+
+            } else if (targetNode && (targetNodeHeader || (targetNode.classList.contains('dima-ai-orb-node') && targetDimaOrbVisual))) { 
+                 e.stopPropagation(); 
+                
+                targetNode.classList.add('no-drag-active'); 
+                if (targetNode.classList.contains('dima-ai-orb-node')) {
+                    targetNode.classList.add('dragging'); 
+                }
+                draggedNode = targetNode;
+                draggedNode.style.zIndex = 1000; 
+
+                const currentTransform = window.getComputedStyle(draggedNode).transform;
+                if (currentTransform && currentTransform !== 'none') {
+                    const matrix = new DOMMatrix(currentTransform);
+                    initialNodeTransformX = matrix.e;
+                    initialNodeTransformY = matrix.f;
+                } else { 
+                    initialNodeTransformX = 0;
+                    initialNodeTransformY = 0;
+                }
+                
+                initialMouseX_drag = e.clientX; // Use specific vars for drag
+                initialMouseY_drag = e.clientY;
+            }
+        });
+
+        // --- Document MouseMove (for Node Dragging and Connection Drawing) ---
+        document.addEventListener('mousemove', (e) => {
+            if (isDrawingConnection && activeLine) {
+                e.preventDefault();
+                const svgRect = connectionsSvgLayer.getBoundingClientRect();
+                const mouseX = e.clientX - svgRect.left; 
+                const mouseY = e.clientY - svgRect.top;
+                
+                const startPos = getPortPosition(startPort);
+                activeLine.setAttribute('d', calculateActiveLinePath(startPos.x, startPos.y, mouseX, mouseY));
+            } else if (draggedNode && !isPanning) { 
+                e.preventDefault();
+                const deltaX = (e.clientX - initialMouseX_drag) / scale; // Use drag-specific initial mouse
+                const deltaY = (e.clientY - initialMouseY_drag) / scale;
+                
+                const newTransformX = initialNodeTransformX + deltaX;
+                const newTransformY = initialNodeTransformY + deltaY;
+                
+                draggedNode.style.transform = `translate(${newTransformX}px, ${newTransformY}px)`;
+                updateConnectionsForNode(draggedNode); 
+            }
+        });
+
+        // --- Document MouseUp (for Node Dragging and Connection Drawing) ---
+        document.addEventListener('mouseup', (e) => {
+            if (isDrawingConnection && activeLine) {
+                const targetPortElement = document.elementFromPoint(e.clientX, e.clientY)?.closest('.node-port.input'); // Use elementFromPoint for better target finding
+                const startNodeElement = startPort.closest('.flow-node');
+                
+                if (targetPortElement && startPort !== targetPortElement && startNodeElement !== targetPortElement.closest('.flow-node')) {
+                    const endNodeElement = targetPortElement.closest('.flow-node');
+                    const startPos = getPortPosition(startPort);
+                    const endPos = getPortPosition(targetPortElement);
+                    
+                    activeLine.setAttribute('d', calculatePermanentBezierPath(startPos, endPos, startPort, targetPortElement));
+                    activeLine.classList.remove('active-drawing');
+                    
+                    connections.push({
+                        id: `conn_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
+                        startNodeId: startNodeElement.dataset.nodeId,
+                        startPortId: startPort.dataset.portId,
+                        endNodeId: endNodeElement.dataset.nodeId,
+                        endPortId: targetPortElement.dataset.portId,
+                        lineElement: activeLine,
+                        startPortElement: startPort, 
+                        endPortElement: targetPortElement  
+                    });
+                } else {
+                    activeLine.remove(); 
+                }
+                
+                isDrawingConnection = false;
+                activeLine = null;
+                startPort = null;
+            } else if (draggedNode) {
+                draggedNode.classList.remove('no-drag-active');
+                if (draggedNode.classList.contains('dima-ai-orb-node')) {
+                    draggedNode.classList.remove('dragging');
+                }
+                draggedNode.style.zIndex = ''; 
+                draggedNode = null;
+            }
+        });
+
+        // --- Node Selection & Properties Panel ---
+        // ... (selection and properties panel JS remains the same)
+        flowCanvas.addEventListener('click', (e) => {
+            const targetNode = e.target.closest('.flow-node');
+            if (e.target.closest('.node-port')) return;
+
+            if (targetNode) { 
+                document.querySelectorAll('.flow-node.selected').forEach(n => n.classList.remove('selected'));
+                targetNode.classList.add('selected');
+                populatePropertiesPanel(targetNode);
+            } else if (!targetNode && !e.target.closest('.flow-sidebar') && !isDrawingConnection && !draggedNode) { 
+                document.querySelectorAll('.flow-node.selected').forEach(n => n.classList.remove('selected'));
+                clearPropertiesPanel();
+            }
+        });
+        
+        function populatePropertiesPanel(node) {
+            const inspectorContent = document.getElementById('inspectorNodeContent');
+            inspectorContent.innerHTML = ''; 
+            
+            const nodeName = node.dataset.nodeName || "Unnamed Node";
+            const nodeType = node.dataset.nodeType || "unknown";
+
+            let html = `<div style="padding: 5px 0;"><h4 style="margin-bottom: 2px;">${nodeName}</h4><small style="color: var(--color-text-muted); font-size: 0.8em;">Type: ${nodeType} | ID: ${node.dataset.nodeId}</small></div><hr style="margin:8px 0; border-color: rgba(var(--color-nebula-highlight-rgb),0.15);">`;
+
+            if (node.id === 'node3') { 
+                const textarea = node.querySelector('textarea');
+                html += `<div class="form-group">
+                            <label for="prop-message">Message Content:</label>
+                            <textarea id="prop-message" class="inspector-input" rows="3">${textarea ? textarea.value : ''}</textarea>
+                         </div>`;
+            } else if (node.id === 'dimaNode') {
+                 html += `<p>This is the core Dima AI engine. Configuration options will appear here.</p>`;
+                 html += `<div class="form-group"><label>Status:</label><input type="text" class="inspector-input" value="Online & Processing" readonly></div>`;
+            }
+            else {
+                html += `<p>No specific properties to edit for this node type yet.</p>`;
+            }
+            inspectorContent.innerHTML = html;
+
+            const messageTextarea = inspectorContent.querySelector('#prop-message');
+            if (messageTextarea && node.id === 'node3') {
+                messageTextarea.addEventListener('input', (e) => {
+                    node.querySelector('textarea').value = e.target.value;
+                });
+            }
+        }
+        function clearPropertiesPanel() {
+            const inspectorContent = document.getElementById('inspectorNodeContent');
+            inspectorContent.innerHTML = `
+                <div class="no-node-selected">
+                    <i class="fas fa-hand-pointer"></i>
+                    <p>حدد عنصراً من مجرة التدفق لعرض خصائصه هنا.</p>
+                </div>`;
+        }
+
+        applyTransform(); 
+        const preSelectedNode = document.querySelector('.flow-node.selected');
+        if (preSelectedNode) {
+            populatePropertiesPanel(preSelectedNode);
+            propertiesInspector.classList.add('visible');
+            togglePropertiesPanelBtn.querySelector('.btn-text').textContent = 'إخفاء الخصائص';
+        } else {
+            clearPropertiesPanel();
+        }
+
+    });
+    </script>
+</body>
+</html>

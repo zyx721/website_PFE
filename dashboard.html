@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dima AI - لوحة التحكم</title>
+    <title>لوحة التحكم - Dima AI</title>
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
@@ -517,6 +517,27 @@
             .app-header { padding: 0 15px 0 60px; /* Space for toggle button on right */ }
         }
 
+        .flow-builder-link {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            border-radius: 10px;
+            color: white;
+            text-decoration: none;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .flow-builder-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .flow-builder-link i {
+            margin-left: 10px;
+            font-size: 1.2em;
+        }
     </style>
 </head>
 <body>
@@ -701,6 +722,15 @@
                             </div>
                             <a href="#analytics" class="btn-app btn-app-link" style="display: block; text-align: center;">عرض التحليلات الكاملة <i class="fas fa-angle-left"></i></a>
                         </section>
+
+                        <!-- New Section for Flow Builder Link -->
+                        <section class="dashboard-section">
+                            <h2>التدفقات الكونية</h2>
+                            <a href="space.html" class="flow-builder-link">
+                                <i class="fas fa-project-diagram"></i>
+                                مصمم التدفقات الكونية
+                            </a>
+                        </section>
                     </div>
                 </div>
             </main>
@@ -748,6 +778,23 @@
                 });
             });
         });
+    </script>
+
+    <script type="module">
+    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+
+    const auth = getAuth();
+
+    // Handle Logout
+    const logoutButton = document.getElementById('logoutButton');
+    logoutButton.addEventListener('click', async () => {
+        try {
+            await signOut(auth);
+            window.location.href = "frontend.html";
+        } catch (error) {
+            alert('Failed to log out. Please try again.');
+        }
+    });
     </script>
 </body>
 </html>

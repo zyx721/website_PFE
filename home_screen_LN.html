@@ -17,9 +17,9 @@
         <div class="container hero-navigation-container">
             <nav class="hero-navigation">
                 <a href="#" class="hero-logo-link"><h2 class="hero-logo-text">Dima AI</h2></a>
-                <div class="auth-actions">
-                    <a href="#login-modal" class="auth-link">تسجيل الدخول</a>
-                    <a href="#signup-modal" class="btn btn-signup">إنشاء حساب</a>
+                <div class="auth-actions" id="authButtons">
+                    <a href="dashboard.html" class="btn btn-primary" style="margin-left: 10px;">لوحة التحكم</a>
+                    <button id="logoutButton" class="btn btn-secondary">تسجيل الخروج</button>
                 </div>
             </nav>
         </div>
@@ -351,7 +351,7 @@
 
     // Redirect to dashboard after successful login/signup
     function redirectToDashboard() {
-        window.location.href = "home_screen_LN.html";
+        window.location.href = "dashboard.html";
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -606,18 +606,27 @@
                 console.error('Redirect Sign-In Error:', error);
             });
 
-        // Handle Logout (Optional)
-        const logoutButton = document.getElementById('logoutButton'); // Add a logout button in your UI
-        if (logoutButton) {
-            logoutButton.addEventListener('click', async () => {
-                try {
-                    await signOut(auth);
-                    alert('Logged out successfully!');
-                } catch (error) {
-                    alert(error.message);
-                }
-            });
+        // Check authentication state
+    auth.onAuthStateChanged((user) => {
+        if (!user) {
+            // If not logged in, redirect to frontend.html
+            window.location.href = 'frontend.html';
         }
+    });
+
+    // Handle Logout
+    const logoutButton = document.getElementById('logoutButton');
+    if (logoutButton) {
+        logoutButton.addEventListener('click', async () => {
+            try {
+                await signOut(auth);
+                window.location.href = 'frontend.html';
+            } catch (error) {
+                console.error('Logout Error:', error);
+                alert('Error logging out. Please try again.');
+            }
+        });
+    }
     </script>
 </body>
 </html>

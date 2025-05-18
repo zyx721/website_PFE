@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dima AI - ديما: شريكك الكوني لنمو تجارتك في الجزائر</title>
+    <style>
+:root {
+    /* Cosmic Color Palette */
+    --gradient-start: #1A2980; /* Deep Indigo */
+    --gradient-end: #26D0CE;   /* Vibrant Teal */
+    --gradient-start-rgb: 26, 41, 128;
+    --gradient-end-rgb: 38, 208, 206;
+
+    --color-nebula-deep: #080A10; 
+    --color-nebula-mid: #10182B;  
+    --color-nebula-highlight: #3D52A0; 
+    --color-star: #FFFFFF;
+    
+    --color-primary-dark: var(--gradient-start);
+    --color-primary-light: var(--gradient-end);
+
+    --color-background-dark: var(--color-nebula-deep);
+    --color-background-medium-dark: #101419;
+    --color-background-light: #FFFFFF;
+    --color-background-offwhite: #F9FAFB; 
+
+    --color-text-light: #EAEFF3;
+    --color-text-primary-on-dark: #FFFFFF;
+    --color-text-dark: #1A202C;
+    --color-text-medium: #5F6B7A;
+    --color-accent: #FBBF24; 
+    --color-focus-ring: #4DA8DA;
+
+    --font-primary: 'Manrope', 'Cairo', sans-serif;
+    --font-secondary: 'Inter', 'Cairo', sans-serif;
+
+    --border-radius-sm: 6px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+    --border-radius-xl: 16px; 
+    --shadow-subtle: 0 2px 8px rgba(0,0,0,0.07);
+    --shadow-medium: 0 6px 15px rgba(0,0,0,0.1);
+    --shadow-strong: 0 10px 30px rgba(0,0,0,0.12), 0 2px 10px rgba(0,0,0,0.08);
+    --shadow-modal: 0 15px 45px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.05) inset;
+
+        /* Social Media App Colors (for mockups) */
+    --whatsapp-green: #075E54; /* Darker green for header */
+    --whatsapp-light-green-bubble: #DCF8C6;
+    --whatsapp-bg-pattern-color: rgba(0, 0, 0, 0.06);
+    --instagram-dm-blue: #3897f0;
+    --instagram-dm-grey: #efefef;
+    --messenger-blue: #0084FF;
+    --messenger-grey: #E4E6EB;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=Cairo:wght@400;600;700;800&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: var(--font-secondary);
+    color: var(--color-text-dark);
+    line-height: 1.75;
+    background-color: var(--color-background-dark); 
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html { scroll-behavior: smooth; }
+
+.container { width: 90%; max-width: 1180px; margin: 0 auto; } 
+.section-padding { padding-top: clamp(70px, 10vh, 100px); padding-bottom: clamp(70px, 10vh, 100px); }
+
+
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-primary); font-weight: 700; margin-bottom: 20px; line-height: 1.3; }
+h1 { font-size: clamp(2.5rem, 5vw, 3.8rem); font-weight: 800; color: var(--color-text-primary-on-dark); letter-spacing: -1.5px; margin-bottom: 25px; }
+h2 { font-size: clamp(2rem, 4vw, 3rem); text-align: center; color: var(--color-text-dark); margin-bottom: 60px; }
+h2.light-text { color: var(--color-text-light); }
+h2 .highlight { background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-fill-color: transparent; padding: 0 3px; }
+h3 { font-size: clamp(1.3rem, 2.2vw, 1.6rem); color: var(--color-text-dark); margin-bottom: 15px; } /* Adjusted for pricing cards */
+h3.light-text { color: var(--color-text-light); }
+p { margin-bottom: 20px; color: var(--color-text-medium); font-size: clamp(0.95rem, 1.5vw, 1.1rem); }
+p.light-text { color: var(--color-text-light); opacity: 0.8; font-weight: 300;}
+p.lead { font-size: clamp(1.1rem, 2vw, 1.3rem); font-weight: 400;}
+.section-subtitle { text-align: center; max-width: 700px; margin-left: auto; margin-right:auto; margin-top: -40px; margin-bottom: 60px; color: var(--color-text-medium); font-size: clamp(1rem, 1.8vw, 1.15rem); }
+.section-subtitle.light-text { color: var(--color-text-light); opacity: 0.85; }
+
+.btn { display: inline-block; padding: 12px 28px; border-radius: var(--border-radius-md); text-decoration: none; font-family: var(--font-primary); font-weight: 700; font-size: 0.95rem; transition: transform 0.25s cubic-bezier(0.25, 0.1, 0.25, 1), box-shadow 0.3s cubic-bezier(0.25, 0.1, 0.25, 1), background-size 0.4s ease, background-color 0.25s ease, border-color 0.25s ease; border: none; cursor: pointer; background-size: 250% auto; position: relative; overflow: hidden; }
+.btn:focus-visible { outline: 2px solid var(--color-focus-ring); outline-offset: 3px; }
+.btn-primary { background-image: linear-gradient(to right, var(--gradient-end) 0%, var(--gradient-start) 50%, var(--gradient-end) 100%); color: var(--color-text-primary-on-dark); box-shadow: 0 5px 18px rgba(var(--gradient-end-rgb), 0.25), 0 0 20px rgba(var(--gradient-end-rgb),0.15) inset; }
+.btn-primary:hover { background-position: right center; transform: translateY(-4px) scale(1.02); box-shadow: 0 8px 25px rgba(var(--gradient-end-rgb), 0.35), 0 0 25px rgba(var(--gradient-end-rgb),0.2) inset; }
+.btn-primary:active { transform: translateY(-1px) scale(0.98); }
+
+.btn-secondary { background-color: transparent; color: var(--color-text-light); border: 2px solid var(--gradient-end); }
+.btn-secondary:hover { background-color: var(--gradient-end); color: var(--color-primary-dark); transform: translateY(-4px); box-shadow: 0 6px 15px rgba(var(--gradient-end-rgb), 0.2); }
+
+.btn-secondary.outline-light { border-color: var(--color-nebula-highlight); color: var(--color-text-light); } /* For dark backgrounds */
+.btn-secondary.outline-light:hover { background-color: var(--color-nebula-highlight); color: var(--color-text-primary-on-dark); box-shadow: 0 6px 15px rgba(var(--gradient-start-rgb), 0.2); }
+
+.btn-secondary.dark-outline { color: var(--color-primary-dark); border-color: var(--gradient-start); } /* For light backgrounds */
+.btn-secondary.dark-outline:hover { background-color: var(--gradient-start); color: var(--color-text-light); box-shadow: 0 6px 15px rgba(var(--gradient-start-rgb), 0.2); }
+
+
+.animate-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275); will-change: opacity, transform; }
+.animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+/* Stagger delay set by inline style --stagger-delay or dynamically via JS */
+.stagger-item { transition-delay: var(--stagger-delay, 0s) !important; } /* Ensure override */
+
+
+/* --- Header / Hero Section --- */
+header.hero {
+    background-color: var(--color-background-dark);
+    color: var(--color-text-light);
+    padding-top: clamp(30px, 6vh, 50px); 
+    padding-bottom: clamp(80px, 15vh, 150px); /* Slightly reduced bottom */
+    position: relative;
+    overflow: hidden;
+}
+header.hero::before, header.hero::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; top:0;  z-index: 0; pointer-events: none; will-change: transform, opacity; }
+header.hero::before { background: radial-gradient(ellipse at 30% 70%, var(--color-nebula-mid) 0%, transparent 60%), radial-gradient(ellipse at 70% 30%, var(--color-nebula-highlight) 0%, transparent 50%); opacity: 0.3; animation: slowNebulaDrift 90s linear infinite alternate; }
+header.hero::after { background: radial-gradient(ellipse at 50% 50%, var(--gradient-end) 0%, transparent 40%), radial-gradient(ellipse at 10% 20%, var(--gradient-start) 0%, transparent 55%), radial-gradient(ellipse at 90% 80%, var(--color-nebula-highlight) 0%, transparent 50%); opacity: 0.2; animation: slowNebulaDrift 70s linear infinite alternate-reverse; }
+@keyframes slowNebulaDrift { 0% { transform: scale(1) translateX(0) translateY(0) rotate(0deg); opacity: 0.2; } 50% { opacity: 0.35; } 100% { transform: scale(1.3) translateX(50px) translateY(-30px) rotate(15deg); opacity: 0.2; } }
+.starfield-layer { position: absolute; top:0; left:0; right:0; bottom:0; z-index:0; overflow: hidden; }
+.star { position: absolute; background-color: var(--color-star); border-radius: 50%; box-shadow: 0 0 4px var(--color-star), 0 0 8px var(--color-star); animation: twinkle 5s infinite ease-in-out; will-change: opacity, transform; }
+@keyframes twinkle { 0%, 100% { opacity: 0.2; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1); } }
+
+.hero-navigation { display: flex; justify-content: space-between; align-items: center; padding-bottom: clamp(40px, 8vh, 70px); position: relative; z-index: 3; }
+.hero-logo-link { text-decoration: none; }
+.hero-logo-text { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; color: var(--color-text-primary-on-dark); margin: 0; letter-spacing: -0.5px; }
+.auth-actions { display: flex; align-items: center; gap: 15px; }
+.auth-link { color: var(--color-text-light); text-decoration: none; font-weight: 600; font-size: 0.95rem; padding: 8px 12px; border-radius: var(--border-radius-sm); transition: background-color 0.2s ease, color 0.2s ease; }
+.auth-link:hover { background-color: rgba(255, 255, 255, 0.1); color: var(--color-text-primary-on-dark); }
+.btn-signup { padding: 10px 20px; font-size: 0.9rem; border: 1.5px solid var(--gradient-end); background-color: transparent; color: var(--gradient-end); }
+.btn-signup:hover { background-color: var(--gradient-end); color: var(--color-primary-dark); box-shadow: 0 4px 12px rgba(var(--gradient-end-rgb), 0.25); }
+/* Google Button (if used elsewhere) */
+
+.hero-content { display: flex; align-items: center; justify-content: space-between; gap: 60px; position: relative; z-index: 2; }
+.hero-text { flex-basis: 55%; max-width: 700px; }
+.hero-text .tagline { font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight: 700; margin-bottom: 15px; color: var(--gradient-end); display: block; letter-spacing: 0.5px; }
+.hero-text p.lead { color: var(--color-text-light); opacity: 0.85; margin-bottom: 40px; font-weight: 400; }
+.hero-ctas .btn { margin-left: 20px; }
+.hero-ctas .btn:first-child { margin-left: 0; }
+.hero-visual { flex-basis: 45%; display: flex; justify-content: center; align-items: center; min-height: 450px; position: relative; } /* Reduced min-height */
+
+.neural-cosmos-container { width: 100%; max-width: 500px; height: 500px; position: relative; filter: drop-shadow(0 0 30px rgba(var(--gradient-end-rgb), 0.5)) drop-shadow(0 0 15px rgba(var(--gradient-start-rgb), 0.4)); animation: subtleCosmosDrift 25s infinite ease-in-out alternate; will-change: transform; } /* Reduced max-width/height */
+@keyframes subtleCosmosDrift { 0% { transform: rotate(-2deg) scale(0.98); } 100% { transform: rotate(2deg) scale(1.02); } }
+.node { position: absolute; border-radius: 50%; will-change: transform, opacity; }
+.dima-core-node { width: 90px; height: 90px; top: 50%; left: 50%; transform: translate(-50%, -50%); background: radial-gradient(ellipse at center, rgba(255,255,255,0.8) 0%, var(--gradient-end) 30%, var(--gradient-start) 70%, transparent 100%); box-shadow: 0 0 15px var(--gradient-end), 0 0 30px var(--gradient-end), 0 0 45px var(--gradient-start), 0 0 20px #FFF inset; animation: pulseDimaCore 3s infinite ease-in-out, driftDimaCore 12s infinite ease-in-out alternate; }
+.dima-core-node::before { content: ''; position: absolute; top: 50%; left: 50%; width: 150%; height: 150%; border: 2px solid rgba(var(--gradient-end-rgb), 0.3); border-radius: 50%; transform: translate(-50%,-50%) scale(0.8); opacity: 0; animation: emanateRing 3s infinite ease-out; animation-delay: 0.5s; }
+@keyframes pulseDimaCore { 0%, 100% { transform: translate(-50%, -50%) scale(0.95); box-shadow: 0 0 12px var(--gradient-end), 0 0 25px var(--gradient-end), 0 0 35px var(--gradient-start), 0 0 15px #FFF inset; } 50% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 18px var(--gradient-end), 0 0 35px var(--gradient-end), 0 0 50px var(--gradient-start), 0 0 25px #FFF inset; } }
+@keyframes driftDimaCore { 0% { filter: brightness(1); } 100% { filter: brightness(1.1); } }
+@keyframes emanateRing { 0% { transform: translate(-50%,-50%) scale(0.8); opacity: 0.7; } 100% { transform: translate(-50%,-50%) scale(1.5); opacity: 0; } }
+.cosmos-path { position: absolute; top: 50%; left: 50%; width: 1.5px;  height: 200px; transform-origin: top center; animation: rotateCosmosPath 20s linear infinite; will-change: transform; } /* Reduced path height */
+.cosmos-path::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 100%; height: 100%; background: linear-gradient(to top, transparent 0%, var(--gradient-end) 40%, var(--gradient-end) 60%, transparent 100%); opacity: 0.4; animation: pathPulseIntensity 10s infinite ease-in-out alternate; }
+@keyframes pathPulseIntensity { 0% { opacity: 0.3; filter: blur(0.5px); } 100% { opacity: 0.6; filter: blur(0); } }
+@keyframes rotateCosmosPath { from { transform: rotate(var(--initial-rotation, 0deg)); } to { transform: rotate(calc(var(--initial-rotation, 0deg) + 360deg)); } }
+.data-comet { position: absolute; width: 5px; height: 25px; background: linear-gradient(to top, transparent, rgba(255,255,255,0.9), rgba(var(--gradient-end-rgb), 0.7)); border-radius: 50% 50% 0 0 / 100% 100% 0 0; box-shadow: 0 0 10px #FFF, 0 0 18px var(--gradient-end); opacity: 0; top: 0; left: calc(50% - 2.5px); transform-origin: bottom center; animation: travelComet 4.5s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335); animation-delay: var(--comet-delay, 0s); will-change: transform, opacity; }
+@keyframes travelComet { 0% { top: 5%; opacity: 0; transform: scaleY(0.3) scaleX(0.5); } 15% { opacity: 1; transform: scaleY(1) scaleX(1); } 85% { opacity: 1; transform: scaleY(1) scaleX(1); } 100% { top: 95%; opacity: 0; transform: scaleY(0.3) scaleX(0.5); } }
+
+/* --- Features Section --- */
+.features-section { background-color: var(--color-background-offwhite); }
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+.feature-card { background-color: var(--color-background-light); padding: 35px; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-subtle); transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1),  box-shadow 0.35s cubic-bezier(0.25, 0.1, 0.25, 1), border-top-color 0.3s ease; border-top: 4px solid transparent; position: relative; }
+.feature-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-strong); border-top-color: var(--gradient-end); }
+.feature-card:hover .icon svg { transform: scale(1.1) rotate(-5deg); }
+.feature-card .icon { margin-bottom: 20px; display: inline-flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end)); color: white; box-shadow: 0 4px 10px rgba(var(--gradient-start-rgb), 0.2); transition: transform 0.3s ease; }
+.feature-card .icon svg { width: 28px; height: 28px; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.feature-card h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); margin-bottom: 10px; color: var(--color-text-dark); font-weight: 700; }
+.feature-card p { color: var(--color-text-medium); font-size: 0.95rem; line-height: 1.6; margin-bottom: 0; }
+
+
+/* --- Social Integration Section --- (REWORKED) */
+.social-integration-section { background-color: var(--color-background-light); }
+.social-mockups-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px; /* Increased gap for better separation of phones */
+    align-items: start; /* Align items to the top */
+}
+
+.phone-mockup {
+    background-color: #1E1E1E; /* Dark phone body */
+    border-radius: 30px; /* More rounded corners for phone */
+    padding: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2), 0 0 0 3px rgba(50,50,50,0.8); /* Phone Bezel */
+    margin: 0 auto; /* Center if single column */
+    width: 100%;
+    max-width: 300px; /* Max width of a phone */
+    height: 600px; /* Fixed height for consistency */
+    position: relative;
+    overflow: hidden; /* Clip the screen */
+        display: flex; /* For inner structure */
+    flex-direction: column;
+}
+.phone-mockup::before { /* Optional: speaker/camera notch area */
+    content: "";
+    position: absolute;
+    top: 12px; /* Inside padding */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40%;
+    height: 18px;
+    background-color: #111; /* Notch color */
+    border-radius: 0 0 8px 8px;
+    z-index: 10;
+}
+.phone-screen {
+    background-color: var(--color-background-light); /* Default screen background */
+    border-radius: 18px; /* Inner screen rounding */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Important for chat scrolling */
+    position: relative;
+}
+
+/* Common App Chat Styles */
+.app-chat-header {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    color: white;
+    position: relative;
+    z-index: 5; /* Above chat messages if overlap occurs*/
+}
+.app-chat-header .back-arrow {
+    margin-left: 8px; /* RTL: margin-right */
+    margin-right: 0;
+    fill: white;
+}
+    .app-chat-header .back-arrow svg { width: 20px; height: 20px; }
+
+.app-chat-header .profile-pic {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #ccc; /* Placeholder */
+    margin-left: 8px; /* RTL */
+    margin-right: 0;
+    object-fit: cover;
+}
+    .app-chat-header .profile-info {
+    flex-grow: 1;
+}
+.app-chat-header .user-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+.app-chat-header .user-status {
+    font-size: 0.7rem;
+    opacity: 0.8;
+}
+.app-chat-header .actions svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px; /* RTL */
+    margin-left: 0;
+    fill: white;
+}
+
+.app-chat-area {
+    flex-grow: 1;
+    padding: 10px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+.app-chat-area .app-message {
+    padding: 7px 12px;
+    border-radius: 15px;
+    margin-bottom: 8px;
+    max-width: 75%;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+.app-message.user {
+    margin-right: auto; /* RTL: margin-left */
+    margin-left: 0;
+    border-bottom-right-radius: 5px; /* RTL: border-bottom-left-radius */
+}
+.app-message.bot {
+    margin-left: auto; /* RTL: margin-right */
+    margin-right: 0;
+    border-bottom-left-radius: 5px; /* RTL: border-bottom-right-radius */
+}
+    .app-message.bot .bot-avatar { /* For messenger */
+    width: 24px; height: 24px; border-radius: 50%; background-color: var(--gradient-end);
+    margin-left: 8px; float: right; /* RTL */
+}
+
+.app-input-bar {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    background-color: var(--color-background-offwhite); /* Light grey bar */
+    border-top: 1px solid #e0e0e0;
+}
+.app-input-bar input[type="text"] {
+    flex-grow: 1;
+    padding: 8px 12px;
+    border-radius: 18px;
+    border: 1px solid #ddd;
+    font-size: 0.85rem;
+    background-color: white;
+}
+.app-input-bar .input-icon {
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+    opacity: 0.7;
+}
+    .app-input-bar .send-button {
+    padding: 0;
+    background: none;
+    border: none;
+}
+.app-input-bar .send-button svg {
+    width: 22px;
+    height: 22px;
+    fill: var(--messenger-blue); /* Default, override per app */
+}
+
+
+/* WhatsApp Specific */
+.whatsapp-ui .phone-screen { background-image: 
+    linear-gradient(var(--whatsapp-bg-pattern-color) .1em, transparent .1em), linear-gradient(90deg, var(--whatsapp-bg-pattern-color) .1em, transparent .1em);
+    background-size: 1.5em 1.5em; /* Dotted pattern for chat background */
+}
+.whatsapp-ui .app-chat-header { background-color: var(--whatsapp-green); }
+.whatsapp-ui .app-message.user { background-color: var(--whatsapp-light-green-bubble); color: #303030; }
+.whatsapp-ui .app-message.bot { background-color: white; color: #303030; box-shadow: 0 1px 1px rgba(0,0,0,0.05); }
+.whatsapp-ui .app-input-bar input[type="text"] { margin: 0 5px; }
+.whatsapp-ui .app-input-bar .send-button svg { fill: var(--whatsapp-green); }
+
+/* Instagram Specific */
+.instagram-ui .phone-screen { background-color: white; }
+.instagram-ui .app-chat-header { background-color: white; border-bottom: 1px solid #dbdbdb; color: #262626; }
+.instagram-ui .app-chat-header .back-arrow, .instagram-ui .app-chat-header .actions svg { fill: #262626; }
+.instagram-ui .app-message.user { background: linear-gradient(to right, #C91DAF, #F99049); color: white; }
+.instagram-ui .app-message.bot { background-color: var(--instagram-dm-grey); color: #262626; }
+.instagram-ui .app-input-bar { border-top: 1px solid #dbdbdb; }
+.instagram-ui .app-input-bar input[type="text"] { border: 1px solid #efefef; margin: 0 5px; }
+.instagram-ui .app-input-bar .send-button svg { fill: var(--instagram-dm-blue); }
+.instagram-ui .app-input-bar .input-icon.heart { fill: #FD1D1D; width: 24px; height: 24px;}
+
+
+/* Facebook Messenger Specific */
+.messenger-ui .phone-screen { background-color: white; }
+.messenger-ui .app-chat-header { background-color: white; border-bottom: 1px solid #e0e0e0; color: #1c1e21;}
+.messenger-ui .app-chat-header .profile-pic { border: 1px solid #ccc; }
+.messenger-ui .app-chat-header .back-arrow { fill: var(--messenger-blue); }
+.messenger-ui .app-chat-header .actions svg { fill: var(--messenger-blue); }
+.messenger-ui .app-message.user { background-color: var(--messenger-blue); color: white; }
+.messenger-ui .app-message.bot { background-color: var(--messenger-grey); color: #1c1e21; display: flex; align-items: flex-end;} /* To align with avatar */
+.messenger-ui .app-message.bot .message-content { flex-grow:1; }
+
+.messenger-ui .app-input-bar input[type="text"] { margin: 0 3px; }
+
+/* Generic icons - consider more specific ones */
+.icon-paperclip { fill: #5f6368; }
+.icon-camera { fill: #5f6368; }
+.icon-mic { fill: #5f6368; }
+.icon-gallery { fill: #5f6368; }
+.icon-plus-circle { fill: var(--messenger-blue); }
+/* Placeholder for bot profile picture for demo */
+.app-chat-header .profile-pic.dima-logo-bg { background-color: var(--gradient-end); display: flex; align-items:center; justify-content: center; font-weight: bold; color: var(--gradient-start); font-size: 0.9em; }
+
+
+/* --- Demo CTA Section --- */
+.demo-cta-section { background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%); color: var(--color-text-light); position: relative; overflow: hidden; }
+.demo-cta-section::before { content: ''; position: absolute; top:0; left:0; right:0; bottom:0; background-image: linear-gradient(45deg, rgba(255,255,255,0.03) 25%, transparent 25%),  linear-gradient(-45deg, rgba(255,255,255,0.03) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.03) 75%), linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.03) 75%); background-size:60px 60px; z-index: 0; opacity: 0.5; }
+.demo-cta-section h2 { color: var(--color-text-light); }
+.demo-cta-content { display: flex; gap: 50px; align-items: center; position: relative; z-index: 1; } 
+.demo-cta-text { flex-basis: 50%; }
+.demo-cta-text p { color: var(--color-text-light); opacity: 0.9; font-size: 1.15rem; font-weight: 300; }
+.demo-chat-interface { flex-basis: 50%; background-color: rgba(10, 15, 20, 0.85); backdrop-filter: blur(15px) saturate(150%); border-radius: var(--border-radius-lg); padding: 30px; box-shadow: 0 15px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1) inset; height: 450px;  display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,0.15); }
+.demo-chat-messages { flex-grow: 1; overflow-y: auto; padding-left: 10px; scrollbar-width: thin; scrollbar-color: var(--gradient-end) rgba(255,255,255,0.1); }
+.demo-chat-messages::-webkit-scrollbar { width: 8px; }
+.demo-chat-messages::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 4px;}
+.demo-chat-messages::-webkit-scrollbar-thumb { background-color: var(--gradient-end) ; border-radius: 4px; border: 2px solid transparent; background-clip: content-box;}
+.demo-chat-messages .chat-bubble.user { background: var(--gradient-end); color: var(--color-primary-dark); }
+.demo-chat-messages .chat-bubble.bot { background-color: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); color: var(--color-text-light); }
+.demo-chat-messages .chat-bubble { opacity: 0; transform: translateY(15px); transition: opacity 0.4s ease, transform 0.4s ease; }
+.demo-chat-input-area { margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; }
+.demo-chat-input-area input { flex-grow: 1; padding: 12px 18px; border: 1px solid rgba(255,255,255,0.35); background-color: rgba(255,255,255,0.08); color: var(--color-text-light); border-radius: 25px; margin-left: 10px; font-family: var(--font-secondary); transition: border-color 0.3s ease, background-color 0.3s ease; }
+.demo-chat-input-area input::placeholder { color: rgba(255,255,255,0.6); }
+.demo-chat-input-area input:focus { background-color: rgba(255,255,255,0.1); border-color: var(--gradient-end); outline: none; box-shadow: 0 0 0 2px rgba(var(--gradient-end-rgb), 0.3); }
+.demo-chat-input-area button { background-color: var(--gradient-end); color: var(--color-primary-dark); border: none; width: 44px; height: 44px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease, background-color 0.2s ease; }
+.demo-chat-input-area button:hover { transform: scale(1.1); background-color: #1bc5c2; }
+.demo-chat-input-area button svg { transition: transform 0.3s ease; }
+.demo-chat-input-area button:hover svg { transform: rotate(-15deg) scale(1.05); }
+
+/* --- Pricing Plans Section (REWORKED) --- */
+.pricing-section { background-color: var(--color-background-dark); }
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px; 
+    align-items: stretch; /* Make cards same height if content differs */
+    margin-bottom: 40px;
+}
+.pricing-card {
+    background-color: var(--color-nebula-mid);
+    color: var(--color-text-light);
+    padding: 30px 25px; /* Reduced padding */
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border: 1px solid rgba(var(--color-nebula-highlight-rgb, 61, 82, 160), 0.35);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    flex-direction: column; /* For footer button alignment */
+}
+.pricing-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+        radial-gradient(ellipse at 70% 20%, rgba(var(--gradient-end-rgb), 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 30% 80%, rgba(var(--gradient-start-rgb), 0.06) 0%, transparent 50%);
+    opacity: 0.7;
+    z-index: 0;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    animation: subtleCardNebula 25s linear infinite alternate;
+}
+@keyframes subtleCardNebula {
+    0% { transform: scale(1.1) rotate(0deg) ; opacity: 0.6; }
+    100% { transform: scale(1.25) rotate(5deg) ; opacity: 0.8; }
+}
+.pricing-card > * { position: relative; z-index: 1; }
+.pricing-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--gradient-end);
+}
+.pricing-card:hover::before { opacity: 1; transform: scale(1.3) rotate(-3deg); }
+
+.plan-icon {
+    margin-bottom: 15px; display: inline-flex; align-items: center; justify-content: center;
+    width: 55px; height: 55px; /* Smaller icon */
+    border-radius: 50%;
+    background: linear-gradient(145deg, var(--gradient-start), var(--color-nebula-highlight));
+    color: white; box-shadow: 0 3px 8px rgba(var(--gradient-start-rgb), 0.2);
+    transition: transform 0.3s ease;
+}
+.pricing-card:hover .plan-icon { transform: scale(1.1) rotate(-6deg); }
+.plan-icon svg { width: 26px; height: 26px; stroke-width: 1.5; }
+
+.pricing-card h3 { /* Plan name */
+    color: var(--color-text-light);
+    font-size: clamp(1.25rem, 2vw, 1.6rem); 
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+.plan-subtitle { /* Added for "نمو متسارع" etc. */
+    font-size: 0.85rem;
+    color: var(--gradient-end);
+    margin-bottom: 15px;
+    font-weight: 600;
+    min-height: 1.2em; /* Reserve space */
+}
+.price-tag {
+    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+    font-weight: 800; color: var(--color-star);
+    margin-bottom: 5px; line-height: 1.1; font-family: var(--font-primary);
+}
+.price-tag .currency { font-size: 0.55em; font-weight: 500; opacity: 0.85; margin-right: 4px; }
+.price-tag .period { font-size: 0.4em; font-weight: 400; opacity: 0.7; display: block; margin-top: -3px; color: var(--color-text-medium); }
+
+.plan-features {
+    list-style: none; padding: 0;
+    margin: 20px 0; text-align: right;
+    flex-grow: 1; /* Push button to bottom */
+}
+.plan-features li {
+    margin-bottom: 10px; font-size: 0.9rem; /* Smaller feature text */
+    color: var(--color-text-light); opacity: 0.8;
+    display: flex; align-items: center; 
+}
+.plan-features li::before {
+    content: '✓'; color: var(--gradient-end); font-weight: bold;
+    margin-left: 8px; font-size: 1em; line-height: 1;
+}
+.plan-features .feature-plus { /* For "Includes all features..." */
+    font-weight: 600;
+    opacity: 0.95;
+    color: var(--color-text-light); /* More prominent */
+    margin-bottom: 12px;
+}
+.plan-features .feature-plus::before { display: none; } /* No checkmark for this line */
+
+
+.pricing-card .btn { margin-top: auto; /* Pushes button to bottom if card heights vary */ width: 100%; padding: 12px 20px; font-size: 0.9rem; }
+
+.pricing-card.featured-plan {
+    border-color: var(--gradient-end);
+    transform: scale(1.03);
+    box-shadow: 0 6px 20px rgba(var(--gradient-end-rgb), 0.2), 0 0 20px rgba(var(--gradient-end-rgb), 0.1) inset;
+}
+.pricing-card.featured-plan .plan-subtitle { color: var(--color-accent); }
+.pricing-card.featured-plan .btn {
+    background-image: linear-gradient(to right, var(--gradient-end) 0%, var(--gradient-start) 50%, var(--gradient-end) 100%);
+    color: var(--color-text-primary-on-dark);
+    border-color: transparent; /* Remove border if btn-primary applied */
+}
+    .pricing-card.featured-plan:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(var(--gradient-end-rgb), 0.25), 0 0 25px rgba(var(--gradient-end-rgb), 0.15) inset;
+}
+
+.popular-badge {
+    position: absolute; top: -1px; right: 20px; /* Align with top edge */
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    color: var(--color-text-primary-on-dark);
+    padding: 6px 15px; font-size: 0.75rem; font-weight: 700;
+    border-radius: 0 0 var(--border-radius-md) var(--border-radius-md);
+    z-index: 3; box-shadow: 0 3px 8px rgba(0,0,0,0.15); letter-spacing: 0.3px;
+}
+.pricing-note { text-align: center; font-size: 1rem; opacity: 0.8; margin-top: 10px; /* Reduced from 40px */ }
+.pricing-note a { color: var(--gradient-end); text-decoration: none; font-weight: 600; }
+.pricing-note a:hover { text-decoration: underline; filter: brightness(1.2); }
+
+
+/* --- Footer --- */
+footer { background-color: var(--color-background-medium-dark); color: var(--color-text-medium); text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+footer .footer-logo { font-size: 1.8rem; font-weight: 700; color: var(--color-text-light); margin-bottom: 15px; font-family: var(--font-primary);}
+footer .footer-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px 25px; margin-bottom: 25px; }
+footer .footer-nav a { color: var(--color-text-medium); text-decoration: none; font-size: 0.95rem; transition: color 0.2s ease; }
+footer .footer-nav a:hover { color: var(--gradient-end); }
+
+/* --- Auth Modal --- (Styles from previous version) */
+.auth-modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(8, 10, 16, 0.7); backdrop-filter: blur(8px) saturate(120%); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; will-change: opacity, visibility; }
+.auth-modal-overlay.is-active { opacity: 1; visibility: visible; }
+.auth-modal { background-color: rgba(16, 24, 43, 0.9); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--border-radius-xl); padding: 35px 40px; width: 90%; max-width: 450px; box-shadow: var(--shadow-modal); transform: scale(0.95); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); color: var(--color-text-light); }
+.auth-modal-overlay.is-active .auth-modal { transform: scale(1); }
+.auth-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+.auth-modal-title { font-size: 1.8rem; font-weight: 700; color: var(--color-text-primary-on-dark); margin: 0; }
+.auth-modal-close { background: none; border: none; font-size: 2rem; color: var(--color-text-medium); cursor: pointer; line-height: 1; padding: 5px; transition: color 0.2s ease, transform 0.2s ease; }
+.auth-modal-close:hover { color: var(--color-text-light); transform: rotate(90deg); }
+.auth-tabs { display: flex; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.15); }
+.auth-tab-btn { flex-grow: 1; background: none; border: none; color: var(--color-text-medium); padding: 12px 15px; font-size: 1rem; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; transition: color 0.2s ease, border-color 0.2s ease; margin-bottom: -1px; }
+.auth-tab-btn:hover { color: var(--color-text-light); }
+.auth-tab-btn.is-active { color: var(--gradient-end); border-bottom-color: var(--gradient-end); }
+.auth-form { display: none; } 
+.auth-form.is-active { display: block; }
+.form-group { margin-bottom: 20px; }
+.form-label { display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 8px; color: var(--color-text-light); opacity: 0.8;}
+.form-input { width: 100%; padding: 12px 15px; background-color: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius: var(--border-radius-md); color: var(--color-text-light); font-size: 1rem; transition: border-color 0.2s ease, background-color 0.2s ease; }
+.form-input::placeholder { color: rgba(255,255,255,0.4); }
+.form-input:focus { outline: none; border-color: var(--gradient-end); background-color: rgba(255,255,255,0.08); box-shadow: 0 0 0 2px rgba(var(--gradient-end-rgb), 0.2); }
+.auth-form .btn-primary { width: 100%; margin-top: 10px; padding: 14px; font-size: 1.1rem; }
+.auth-divider { text-align: center; margin: 25px 0; color: rgba(255,255,255,0.4); font-size: 0.9rem; display: flex; align-items: center; }
+.auth-divider::before, .auth-divider::after { content: ''; flex-grow: 1; height: 1px; background-color: rgba(255,255,255,0.15); margin: 0 10px; }
+.btn-auth-google { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 12px; font-size: 1rem; background-color: #FFF; color: #333; border: 1px solid #DDD; border-radius: var(--border-radius-md); font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background-color 0.2s ease, box-shadow 0.2s ease; }
+.btn-auth-google:hover { background-color: #F7F7F7; box-shadow: 0 2px 5px rgba(0,0,0,0.15); }
+.btn-auth-google svg { width: 20px; height: 20px; }
+
+/* --- Responsive Design Adjustments --- */
+@media (max-width: 992px) {
+    .hero-content { flex-direction: column; text-align: center; gap: 30px; }
+    .hero-text { max-width: 100%; order: 2; }
+    .hero-visual { order: 1; margin-top: 0; min-height: 380px; margin-bottom: 30px;}
+    .neural-cosmos-container { max-width: 380px; height: 380px; }
+    .demo-cta-content { flex-direction: column; gap: 30px; }
+    .demo-chat-interface { width: 100%; max-width: 500px; height: 420px;}
+    .pricing-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; }
+    .social-mockups-container { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; }
+    .phone-mockup { height: 580px; }
+}
+@media (max-width: 768px) {
+    .section-padding { padding-top: clamp(60px, 8vh, 90px); padding-bottom: clamp(60px, 8vh, 90px); }
+    h2 { margin-bottom: 50px; }
+    .auth-actions { gap: 10px; } 
+    .auth-link, .btn-signup { padding: 8px 10px; font-size: 0.8rem;}
+    .hero-ctas .btn { margin-bottom: 12px; display: block; width: fit-content; margin-left: auto; margin-right: auto;}
+    .features-grid, .social-mockups-container, .pricing-grid { grid-template-columns: 1fr; gap: 25px; } 
+    .pricing-card.featured-plan { transform: scale(1); } 
+    .pricing-card.featured-plan:hover { transform: translateY(-8px) scale(1.02); } 
+    .phone-mockup { max-width: 280px; height: 560px; padding: 10px; border-radius: 26px; }
+    .phone-mockup::before { height: 16px; border-radius: 0 0 7px 7px; }
+    .phone-screen { border-radius: 16px;}
+    .app-chat-header .profile-pic { width: 28px; height: 28px; }
+    .app-chat-header .user-name { font-size: 0.85rem; }
+    .app-message { font-size: 0.8rem; padding: 6px 10px;}
+    .app-input-bar input[type="text"] { font-size: 0.8rem; padding: 7px 10px; }
+
+    .demo-chat-interface { height: 400px; padding: 25px; }
+}
+@media (max-width: 480px) {
+    .hero-navigation { padding-bottom: clamp(20px, 5vh, 30px); }
+    .hero-text h1 { font-size: clamp(2rem, 7vw, 2.8rem); }
+    .auth-actions { flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+        .btn-signup { flex-basis: auto; } /* Let them be side-by-side if space, or wrap */
+    .auth-link { flex-basis: auto;}
+
+
+    .neural-cosmos-container { max-width: 280px; height: 280px; }
+    .dima-core-node {width: 60px; height: 60px;}
+    .demo-chat-interface { padding: 20px; height: auto; min-height: 380px;}
+    .btn { padding: 10px 22px; font-size: 0.9rem;}
+    .pricing-card { padding: 25px 20px; }
+    .price-tag { font-size: clamp(1.6rem, 6vw, 2.2rem); }
+    .plan-features li { font-size: 0.85rem; }
+        .social-mockups-container { gap: 30px; }
+    .phone-mockup { max-width: 95%; height: 520px; /* Let width dictate more */ }
+
+}
+
+</style>
+    <!-- Firebase App (Core) SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+    <!-- Firebase Authentication SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
+</head>
+<body>
+
+    <header class="hero">
+        <div class="starfield-layer" id="starfield"></div>
+        <div class="container hero-navigation-container">
+            <nav class="hero-navigation">
+                <a href="#" class="hero-logo-link"><h2 class="hero-logo-text">Dima AI</h2></a>
+                <div class="auth-actions">
+                    <a href="#login-modal" class="auth-link">تسجيل الدخول</a>
+                    <a href="#signup-modal" class="btn btn-signup">إنشاء حساب</a>
+                </div>
+            </nav>
+        </div>
+        <div class="container hero-content-container">
+            <div class="hero-content">
+                 <div class="hero-text animate-on-scroll">
+                    <span class="tagline">Dima AI - ديما الذكي</span>
+                    <h1>وكيلك الكوني لنمو تجارتك <br class="d-none d-md-block">في الجزائر.</h1>
+                    <p class="light-text lead">
+                        انطلق في رحلة نحو التميز الرقمي مع "ديما". ذكاء اصطناعي يتجاوز الحدود، يفهم عمق لهجتك، 
+                        ويتصل بعملائك في فضاء لا نهائي من الإمكانيات.
+                    </p>
+                    <div class="hero-ctas">
+                        <a href="#demo-cta" class="btn btn-primary">اكتشف المجرة التجريبية</a>
+                        <a href="#pricing-plans" class="btn btn-secondary">اكتشف باقاتنا الكونية</a>
+                    </div>
+                </div>
+                <div class="hero-visual animate-on-scroll stagger-item" style="--stagger-delay: 0.2s;">
+                    <div class="neural-cosmos-container" id="neuralCosmos">
+                        <div class="node dima-core-node"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="features" class="features-section section-padding">
+        <div class="container">
+            <h2 class="animate-on-scroll">لماذا <span class="highlight">ديما</span> هو نجمك المرشد؟</h2>
+            <div class="features-grid">
+                <div class="feature-card animate-on-scroll stagger-item" style="--stagger-delay: 0s;"> <div class="icon"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> </div> <h3>فهم عميق للدارجة الجزائرية</h3> <p>مدعوم بنماذج لغوية متخصصة، يتفاعل "ديما" بذكاء مع عملائك بلهجتهم.</p> </div>
+                <div class="feature-card animate-on-scroll stagger-item" style="--stagger-delay: 0.1s;"> <div class="icon"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="M12 6v6l4 2"></path></svg> </div> <h3>إجابات فورية 24/7</h3> <p>يوفر "ديما" الدعم المستمر، ويجيب على استفسارات العملاء فورًا.</p> </div>
+                <div class="feature-card animate-on-scroll stagger-item" style="--stagger-delay: 0.2s;"> <div class="icon"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg> </div> <h3>بحث ذكي عن المنتجات</h3> <p>يساعد العملاء في العثور على ما يبحثون عنه بدقة وسرعة في متجرك.</p> </div>
+                <div class="feature-card animate-on-scroll stagger-item" style="--stagger-delay: 0.3s;"> <div class="icon"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg> </div> <h3>إدارة الطلبات والدفع</h3> <p>"ديما" يبسّط عملية الشراء ويدعم الدفع عند الاستلام، مما يزيد ثقة العملاء.</p> </div>
+                <div class="feature-card animate-on-scroll stagger-item" style="--stagger-delay: 0.4s;"> <div class="icon"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg> </div> <h3>تحويل سلس للوكيل</h3> <p>عند الحاجة، يوجه "ديما" المحادثة لفريقك بسلاسة مع كامل السياق.</p> </div>
+                <div class="feature-card animate-on-scroll stagger-item" style="--stagger-delay: 0.5s;"> <div class="icon"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg> </div> <h3>زيادة المبيعات والولاء</h3> <p>بتجربة مستخدم استثنائية، يساعدك "ديما" على بناء علاقات قوية وزيادة أرباحك.</p> </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Integration Section (REWORKED) -->
+    <section id="social-integration" class="social-integration-section section-padding">
+        <div class="container">
+            <h2 class="dark-text animate-on-scroll">يتصل <span class="highlight">بعالمك</span> عبر كل القنوات</h2>
+            <p class="section-subtitle animate-on-scroll stagger-item" style="--stagger-delay: 0.1s;"> تواجد حيث يتواجد عملاؤك. "ديما" يعمل عبر واتساب، انستغرام، فيسبوك ماسنجر، وموقعك مباشرة. </p>
+            <div class="social-mockups-container">
+                <!-- WhatsApp Mockup -->
+                <div class="phone-mockup whatsapp-ui animate-on-scroll stagger-item" style="--stagger-delay: 0.2s;">
+                    <div class="phone-screen">
+                        <div class="app-chat-header">
+                            <span class="back-arrow"><svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></span>
+                            <div class="profile-pic dima-logo-bg">DM</div>
+                            <div class="profile-info">
+                                <div class="user-name">عميلك</div>
+                                <div class="user-status">متصل الآن</div>
+                            </div>
+                            <div class="actions">
+                                <svg viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                            </div>
+                        </div>
+                        <div class="app-chat-area">
+                            <div class="app-message bot">السلام عليكم! كيفاش نقدر نعاونك اليوم مع ديما؟</div>
+                            <div class="app-message user">وعليكم السلام. بغيت نسقسي على لي تريكو نواغ.</div>
+                            <div class="app-message bot">كاينة موديلات بزاف. واش من طاي تحوس؟ عندنا كلش!</div>
+                        </div>
+                        <div class="app-input-bar">
+                            <svg class="input-icon icon-paperclip" viewBox="0 0 24 24"><path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5a2.5 2.5 0 0 1 5 0v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5a2.5 2.5 0 0 0 5 0V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/></svg>
+                            <input type="text" placeholder="اكتب رسالة..." readonly />
+                            <svg class="input-icon icon-camera" viewBox="0 0 24 24"><path d="M12 12c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm-2 4h4v-1.03c0-.39-.2-.75-.52-.93l-1.93-1.12c-.33-.19-.74-.19-1.06 0l-1.93 1.12c-.33.19-.52.55-.52.94V16zm10-4c0-1.1-.9-2-2-2h-1.05c-.29 0-.56.16-.7.42L14 10H10l-.27-.42c-.13-.26-.4-.42-.69-.42H8c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2v-6zm-2-2v6H8v-6h1.5l.75 1.25L11.25 10h1.5l1 1.25L14.5 10H16zM4 6C2.9 6 2 6.9 2 8v10c0 1.1.9 2 2 2h1V6H4z"/></svg>
+                            <button class="send-button">
+                               <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg> <!-- Using info icon as send placeholder -->
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Instagram Mockup -->
+                <div class="phone-mockup instagram-ui animate-on-scroll stagger-item" style="--stagger-delay: 0.35s;">
+                    <div class="phone-screen">
+                        <div class="app-chat-header">
+                            <span class="back-arrow"><svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></span>
+                            <div class="profile-pic dima-logo-bg">DM</div>
+                            <div class="profile-info">
+                                <div class="user-name">Client_Alger</div>
+                            </div>
+                            <div class="actions">
+                                <svg viewBox="0 0 24 24"><path d="M3 18v-2h18v2H3zm0-5v-2h18v2H3zm0-5V6h18v2H3z"/></svg>
+                            </div>
+                        </div>
+                        <div class="app-chat-area">
+                            <div class="app-message user">سلام، شحال دير هذيك لاغوب الحمرا؟ شابة بزاف!</div>
+                            <div class="app-message bot">مرحباً بك! سعر الفستان الأحمر 5500 دج. التوصيل متوفر لكل ولايات الكون 😉</div>
+                            <div class="app-message user">ما شاء الله، شكراً! 👍</div>
+                        </div>
+                         <div class="app-input-bar">
+                            <svg class="input-icon icon-camera" viewBox="0 0 24 24"><path d="M12 12c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm-2 4h4v-1.03c0-.39-.2-.75-.52-.93l-1.93-1.12c-.33-.19-.74-.19-1.06 0l-1.93 1.12c-.33.19-.52.55-.52.94V16zm10-4c0-1.1-.9-2-2-2h-1.05c-.29 0-.56.16-.7.42L14 10H10l-.27-.42c-.13-.26-.4-.42-.69-.42H8c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2v-6zm-2-2v6H8v-6h1.5l.75 1.25L11.25 10h1.5l1 1.25L14.5 10H16zM4 6C2.9 6 2 6.9 2 8v10c0 1.1.9 2 2 2h1V6H4z"/></svg>
+                            <input type="text" placeholder="إرسال رسالة..." readonly />
+                            <svg class="input-icon icon-mic" viewBox="0 0 24 24"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>
+                            <svg class="input-icon icon-gallery" viewBox="0 0 24 24"><path d="M22 16V4c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2zm-11-4l2.03 2.71L16 11l4 5H8l3-4zM4 20h14v-2H4c-1.1 0-2-.9-2-2V6H0v12c0 1.1.9 2 2 2z"/></svg>
+                             <svg class="input-icon heart" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Messenger Mockup -->
+                <div class="phone-mockup messenger-ui animate-on-scroll stagger-item" style="--stagger-delay: 0.5s;">
+                    <div class="phone-screen">
+                        <div class="app-chat-header">
+                            <span class="back-arrow"><svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></span>
+                             <div class="profile-pic dima-logo-bg">DA</div>
+                            <div class="profile-info">
+                                <div class="user-name">Dima AI Support</div>
+                            </div>
+                            <div class="actions">
+                               <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.02.74-.25 1.02l-2.2 2.2z"/></svg>
+                               <svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4zM15 16H5V8h10v8z"/></svg>
+                            </div>
+                        </div>
+                        <div class="app-chat-area">
+                            <div class="app-message user">السلام عليكم فريق ديما، حبيت نسقسي، هل توصلون إلى وهران؟ وشحال التكلفة؟</div>
+                            <div class="app-message bot">
+                                <span class="bot-avatar"></span> <!-- Small avatar next to bubble -->
+                                <span class="message-content">وعليكم السلام! أكيد نوصلوا لـ 58 ولاية. التوصيل لوهران 600 دج. تحب نمررلك كوموند؟</span>
+                            </div>
+                             <div class="app-message user">وي يعطيكم الصحة!</div>
+                        </div>
+                         <div class="app-input-bar">
+                            <svg class="input-icon icon-plus-circle" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+                            <svg class="input-icon icon-camera" viewBox="0 0 24 24"><path d="M12 12c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm-2 4h4v-1.03c0-.39-.2-.75-.52-.93l-1.93-1.12c-.33-.19-.74-.19-1.06 0l-1.93 1.12c-.33.19-.52.55-.52.94V16zm10-4c0-1.1-.9-2-2-2h-1.05c-.29 0-.56.16-.7.42L14 10H10l-.27-.42c-.13-.26-.4-.42-.69-.42H8c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2v-6zm-2-2v6H8v-6h1.5l.75 1.25L11.25 10h1.5l1 1.25L14.5 10H16zM4 6C2.9 6 2 6.9 2 8v10c0 1.1.9 2 2 2h1V6H4z"/></svg>
+                            <svg class="input-icon icon-gallery" viewBox="0 0 24 24"><path d="M22 16V4c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2zm-11-4l2.03 2.71L16 11l4 5H8l3-4zM4 20h14v-2H4c-1.1 0-2-.9-2-2V6H0v12c0 1.1.9 2 2 2z"/></svg>
+                            <svg class="input-icon icon-mic" viewBox="0 0 24 24"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>
+                            <input type="text" placeholder="Aa" readonly />
+                            <button class="send-button">
+                                <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="demo-cta" class="demo-cta-section section-padding">
+        <div class="container">
+            <div class="demo-cta-content">
+                <div class="demo-cta-text animate-on-scroll">
+                    <h2 class="light-text">تفاعل مع <span style="opacity:0.9; color: var(--gradient-end); text-shadow: 0 0 15px var(--gradient-end);">مجرة ديما</span> التجريبية!</h2>
+                    <p class="light-text"> استكشف بنفسك قوة وذكاء "ديما". اطرح أسئلة بالدارجة، قم بمحاكاة بحث عن منتج، أو جرب عملية طلب في بيئة تفاعلية مذهلة. </p>
+                    <a href="#get-started" class="btn btn-secondary" style="margin-top: 30px; border-color:var(--color-text-light); color:var(--color-text-light); background-color: rgba(255,255,255,0.08);">اطلب عرضًا توضيحيًا خاصًا بمجرتك</a>
+                </div>
+                <div class="demo-chat-interface animate-on-scroll stagger-item" style="--stagger-delay: 0.2s;">
+                    <div class="demo-chat-messages"> </div>
+                    <div class="demo-chat-input-area"> <input type="text" placeholder="اكتب رسالتك بالدارجة هنا..." value="السلام، عندكم صبابط سبور؟" readonly> <button type="button" aria-label="Send message"> <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg> </button> </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Plans Section (REWORKED) -->
+    <section id="pricing-plans" class="pricing-section section-padding">
+        <div class="container">
+            <h2 class="light-text animate-on-scroll">باقات <span class="highlight">ديما</span> الكونية: وقودك نحو النجوم</h2>
+            <p class="section-subtitle light-text animate-on-scroll stagger-item" style="--stagger-delay: 0.1s;">
+                باقات مصممة خصيصًا لتلبية احتياجات مجرتك التجارية، مهما كان حجمها وتطلعاتها في هذا الكون الواسع.
+            </p>
+            <div class="pricing-grid">
+                <!-- Plan 1: Stellar Scout -->
+                <div class="pricing-card animate-on-scroll stagger-item" style="--stagger-delay: 0.2s;">
+                    <div class="plan-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a4.98 4.98 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.87 12.87 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+                    </div>
+                    <h3>الكشّاف النجمي</h3>
+                    <p class="plan-subtitle">نطاق محدود</p>
+                    <div class="price-tag">
+                        <span class="currency">د.ج</span>3,500<span class="period">/ شهريًا</span>
+                    </div>
+                    <ul class="plan-features">
+                        <li>قناة تكامل واحدة (واتساب أو موقعك)</li>
+                        <li>فهم أساسي للدارجة الجزائرية</li>
+                        <li>500 محادثة شهرية بالذكاء الاصطناعي</li>
+                        <li>دعم فني عبر البريد الإلكتروني</li>
+                    </ul>
+                    <a href="#contact-form" class="btn btn-secondary outline-light">ابدأ رحلة الكشّاف</a>
+                </div>
+
+                <!-- Plan 2: Galactic Explorer (Featured) -->
+                <div class="pricing-card featured-plan animate-on-scroll stagger-item" style="--stagger-delay: 0.3s;">
+                    <div class="popular-badge">الأكثر شيوعًا</div>
+                    <div class="plan-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>
+                    </div>
+                    <h3>المستكشف المجري</h3>
+                    <p class="plan-subtitle">نمو متسارع</p>
+                    <div class="price-tag">
+                        <span class="currency">د.ج</span>8,000<span class="period">/ شهريًا</span>
+                    </div>
+                    <ul class="plan-features">
+                        <li class="feature-plus">تشمل كل مزايا الكشّاف النجمي +</li>
+                        <li>حتى 3 قنوات تكامل (واتساب، فيسبوك، انستا...)</li>
+                        <li>فهم متقدم للدارجة واللهجات المتعددة</li>
+                        <li>بحث ذكي ودقيق عن المنتجات</li>
+                        <li>2,000 محادثة شهرية بالذكاء الاصطناعي</li>
+                        <li>دعم فني ذو أولوية عالية</li>
+                    </ul>
+                    <a href="#contact-form" class="btn btn-primary">انطلق مع المستكشف</a>
+                </div>
+
+                <!-- Plan 3: Cosmic Overlord -->
+                <div class="pricing-card animate-on-scroll stagger-item" style="--stagger-delay: 0.4s;">
+                    <div class="plan-icon">
+                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><path d="M20.2 20.2c2.04-2.03.02-7.53-4.45-11.98-4.49-4.46-9.97-6.48-11.98-4.45-2.04 2.03-.02 7.53 4.45 11.98 4.49 4.46 9.97 6.48 11.98 4.45Z"/><path d="M15.7 15.7c4.44-4.45 6.48-9.97 4.45-11.98-2.03-2.04-7.53-.02-11.98 4.45-4.44 4.45-6.48 9.97-4.45 11.98 2.03 2.04 7.53.02 11.98-4.45Z"/></svg>
+                    </div>
+                    <h3>سيّد الأكوان</h3>
+                     <p class="plan-subtitle">هيمنة كاملة</p>
+                    <div class="price-tag">
+                        <span class="currency"></span>اتصل بنا<span class="period">حلول مخصصة لمجرتك</span>
+                    </div>
+                    <ul class="plan-features">
+                        <li class="feature-plus">تشمل كل مزايا المستكشف المجري +</li>
+                        <li>قنوات تكامل غير محدودة</li>
+                        <li>نماذج لغوية مخصصة (Fine-tuning)</li>
+                        <li>إدارة طلبات متكاملة مع الدفع</li>
+                        <li>محادثات غير محدودة بقدرات الذكاء الاصطناعي</li>
+                        <li>مدير حساب خاص ودعم كوني VIP</li>
+                    </ul>
+                    <a href="mailto:contact@dima.ai?subject=استفسار حول باقة سيد الأكوان" class="btn btn-secondary outline-light">ناقش هيمنتك الكونية</a>
+                </div>
+            </div>
+            <p class="pricing-note light-text animate-on-scroll stagger-item" style="--stagger-delay: 0.5s;">
+                هل لديك متطلبات فريدة تحتاج لحلول مصممة خصيصًا لمجرتك؟ 
+                <a href="mailto:contact@dima.ai?subject=طلب باقة مخصصة من Dima AI">تواصل معنا</a> الآن!
+            </p>
+        </div>
+    </section>
+
+    <footer id="get-started" class="section-padding">
+        <div class="container">
+            <div class="footer-logo animate-on-scroll">Dima AI</div>
+            <p class="light-text animate-on-scroll stagger-item" style="opacity:0.8; --stagger-delay: 0.1s;">هل أنت مستعد للانطلاق نحو مستقبل التجارة الإلكترونية في الجزائر مع "ديما"؟</p>
+            <a href="mailto:contact@dima.ai?subject=Demande d'informations Dima AI" class="btn btn-primary animate-on-scroll stagger-item" style="margin: 25px 0; --stagger-delay: 0.2s;">تواصل معنا للانطلاق</a>
+            <div class="footer-nav animate-on-scroll stagger-item" style="margin-top:20px; --stagger-delay: 0.3s;"> 
+                <a href="#">الرئيسية</a> 
+                <a href="#features">الميزات</a> 
+                <a href="#social-integration">التكامل الاجتماعي</a>
+                <a href="#pricing-plans">الباقات</a>
+                <a href="#demo-cta">التجربة الكونية</a> 
+            </div>
+            <p style="margin-top: 30px; font-size:0.9rem; color: #718096;" class="animate-on-scroll stagger-item" style="--stagger-delay: 0.4s;">&copy; <span id="currentYear"></span> Dima AI. كل الحقوق محفوظة في هذا الكون وما وراءه.</p>
+            <p style="font-size:0.85rem; color: #718096;" class="animate-on-scroll stagger-item" style="--stagger-delay: 0.5s;">صُمم بحب لنجوم التجارة الإلكترونية في الجزائر.</p>
+        </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div class="auth-modal-overlay" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authModalTitle" hidden>
+        <div class="auth-modal" role="document">
+            <div class="auth-modal-header">
+                <h2 id="authModalTitle" class="auth-modal-title">تسجيل الدخول</h2>
+                <button class="auth-modal-close" aria-label="إغلاق">&times;</button>
+            </div>
+            <div class="auth-tabs">
+                <button class="auth-tab-btn is-active" data-auth-form="loginForm">تسجيل الدخول</button>
+                <button class="auth-tab-btn" data-auth-form="signupForm">إنشاء حساب</button>
+            </div>
+            <div class="auth-form-container">
+                <form id="loginForm" class="auth-form is-active">
+                    <div class="form-group">
+                        <label for="loginEmail" class="form-label">البريد الإلكتروني</label>
+                        <input type="email" id="loginEmail" class="form-input" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword" class="form-label">كلمة المرور</label>
+                        <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">دخول</button>
+                    <div class="auth-divider">أو</div>
+                    <button type="button" class="btn btn-auth-google">
+                        <svg viewBox="0 0 48 48">
+                            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                            <path fill="none" d="M0 0h48v48H0z"/>
+                        </svg>
+                        <span>الدخول بحساب جوجل</span>
+                    </button>
+                </form>
+                <form id="signupForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="signupName" class="form-label">الاسم الكامل</label>
+                        <input type="text" id="signupName" class="form-input" placeholder="اسمك الكامل" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail" class="form-label">البريد الإلكتروني</label>
+                        <input type="email" id="signupEmail" class="form-input" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword" class="form-label">كلمة المرور</label>
+                        <input type="password" id="signupPassword" class="form-input" placeholder="اختر كلمة مرور قوية" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">إنشاء حساب جديد</button>
+                    <div class="auth-divider">أو</div>
+                    <button type="button" class="btn btn-auth-google">
+                        <svg viewBox="0 0 48 48">
+                            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                            <path fill="none" d="M0 0h48v48H0z"/>
+                        </svg>
+                        <span>التسجيل بحساب جوجل</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-analytics.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyCA15vsYqRg6X9gaKwxhuMGFwfKZvFvc3A",
+        authDomain: "dima-cafe5.firebaseapp.com",
+        projectId: "dima-cafe5",
+        storageBucket: "dima-cafe5.firebasestorage.app",
+        messagingSenderId: "606982365009",
+        appId: "1:606982365009:web:19ca2da3167a452e11bd70",
+        measurementId: "G-R7EN5C2L32"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Smooth Scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const hrefAttribute = this.getAttribute('href');
+                if (hrefAttribute === '#login-modal' || hrefAttribute === '#signup-modal') {
+                    return;
+                }
+
+                // Special handling for #contact-form links in pricing to scroll to footer
+                if (hrefAttribute === "#contact-form") {
+                    e.preventDefault();
+                    const contactSection = document.getElementById('get-started');
+                    if (contactSection) {
+                        contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                    return;
+                }
+
+                try {
+                    const targetElement = document.querySelector(hrefAttribute);
+                    if (targetElement) {
+                        e.preventDefault();
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                } catch (error) {
+                    console.warn("Smooth scroll target not found or invalid:", hrefAttribute);
+                }
+            });
+        });
+
+            // Starfield generation
+            const starfield = document.getElementById('starfield');
+            const numStars = 120; // Slightly reduced for performance, can be adjusted
+            if (starfield) {
+                for (let i = 0; i < numStars; i++) {
+                    let star = document.createElement('div');
+                    star.className = 'star';
+                    star.style.width = `${Math.random() * 1.3 + 0.2}px`; 
+                    star.style.height = star.style.width;
+                    star.style.left = `${Math.random() * 100}%`;
+                    star.style.top = `${Math.random() * 100}%`;
+                    star.style.animationDelay = `${Math.random() * 6}s`; 
+                    star.style.animationDuration = `${Math.random() * 3.5 + 2.5}s`;
+                    starfield.appendChild(star);
+                }
+            }
+
+            // Neural Cosmos Path generation
+            const cosmosContainer = document.getElementById('neuralCosmos');
+            const numPaths = 5; // Slightly reduced for less clutter
+            if (cosmosContainer && cosmosContainer.querySelector('.dima-core-node')) {
+                for (let i = 0; i < numPaths; i++) {
+                    const pathAngle = (360 / numPaths) * i + (Math.random() * 8 - 4); 
+                    const pathLength = 160 + Math.random() * 60; 
+                    const pathDiv = document.createElement('div');
+                    pathDiv.className = 'cosmos-path';
+                    pathDiv.style.setProperty('--initial-rotation', `${pathAngle}deg`);
+                    pathDiv.style.height = `${pathLength}px`;
+                    pathDiv.style.animationDuration = `${17 + Math.random() * 8}s`; 
+                    
+                    const cometDiv = document.createElement('div');
+                    cometDiv.className = 'data-comet';
+                    cometDiv.style.setProperty('--comet-delay', `${Math.random() * 4.5}s`);
+                    pathDiv.appendChild(cometDiv);
+                    cosmosContainer.appendChild(pathDiv);
+                }
+            }
+
+            // Demo Chat Simulation
+            const demoMessagesContainer = document.querySelector('.demo-chat-messages');
+            const demoMessages = [ 
+                { type: 'user', text: 'السلام، عندكم صبابط سبور؟' },
+                { type: 'bot', text: 'وعليكم السلام! مرحباً بك في مجرة ديما! لدينا تشكيلة كونية. أي نوع أو ماركة تبحث عنها؟' },
+                { type: 'user', text: 'وريلي لي مودال لي عندكم في النوار، مقاس 43. مريحين للسفر عبر النجوم.' },
+                { type: 'bot', text: 'تمام! لحظة وأبحث لك... وجدنا أحذية "نجمية سوداء" مقاس 43، مثالية لرحلاتك! الدفع عند الاستلام متوفر.' },
+                { type: 'user', text: 'ممتاز! كومونديلي واحد. شكراً!' }
+            ];
+            let messageIndex = 0;
+            let demoChatStarted = false; 
+
+            function addDemoMessage() {
+                if (demoMessagesContainer && messageIndex < demoMessages.length) {
+                    const msgData = demoMessages[messageIndex];
+                    const bubble = document.createElement('div');
+                    bubble.className = `chat-bubble ${msgData.type}`;
+                    bubble.textContent = msgData.text;
+                    demoMessagesContainer.appendChild(bubble);
+                    setTimeout(() => { 
+                        bubble.style.opacity = '1'; 
+                        bubble.style.transform = 'translateY(0)'; 
+                    }, 50);
+                    demoMessagesContainer.scrollTop = demoMessagesContainer.scrollHeight; 
+                    messageIndex++;
+                    if (messageIndex < demoMessages.length) {
+                         setTimeout(addDemoMessage, msgData.type === 'bot' ? 2600 : 2000); // Slightly faster
+                    }
+                }
+            }
+
+            // Scroll Animation Observer
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+            const scrollObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Apply stagger delay if defined inline
+                        const staggerDelay = entry.target.style.getPropertyValue('--stagger-delay');
+                        if (staggerDelay && entry.target.classList.contains('stagger-item')) {
+                             entry.target.style.transitionDelay = staggerDelay;
+                        }
+                        entry.target.classList.add('is-visible');
+                        
+                        if (entry.target.closest('.demo-cta-section') && !demoChatStarted && demoMessagesContainer) {
+                            if (demoMessagesContainer.children.length === 0 && messageIndex === 0) {
+                                demoChatStarted = true;
+                                addDemoMessage();
+                            }
+                        }
+                       // scrollObserver.unobserve(entry.target); 
+                    }
+                });
+            }, { threshold: 0.08 }); // Reduced threshold slightly
+
+            animatedElements.forEach(el => scrollObserver.observe(el));
+        });
+
+        // Auth Modal Functionality (from previous version, ensure it's robust)
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('authModal');
+            if (!modal) return; 
+
+            const loginTrigger = document.querySelector('a[href="#login-modal"]');
+            const signupTrigger = document.querySelector('a[href="#signup-modal"]');
+            const closeBtn = modal.querySelector('.auth-modal-close');
+            const tabBtns = modal.querySelectorAll('.auth-tab-btn');
+            const forms = modal.querySelectorAll('.auth-form');
+
+            function openModal(formIdToShow) {
+                modal.hidden = false;
+                document.body.style.overflow = 'hidden';
+                
+                requestAnimationFrame(() => { // Ensure display is set before adding class for transition
+                    modal.classList.add('is-active');
+                
+                    tabBtns.forEach(btn => btn.classList.remove('is-active'));
+                    forms.forEach(form => form.classList.remove('is-active'));
+
+                    const targetTabButton = modal.querySelector(`.auth-tab-btn[data-auth-form="${formIdToShow}"]`);
+                    const targetForm = document.getElementById(formIdToShow);
+
+                    if (targetTabButton) targetTabButton.classList.add('is-active');
+                    if (targetForm) {
+                        targetForm.classList.add('is-active');
+                        const firstInput = targetForm.querySelector('input:not([type="hidden"]), button:not(.auth-modal-close)');
+                        if(firstInput) firstInput.focus();
+                    }
+                });
+            }
+
+            function closeModal() {
+                modal.classList.remove('is-active');
+                // Wait for animation to finish before hiding
+                modal.addEventListener('transitionend', function handler() {
+                    modal.hidden = true;
+                    modal.removeEventListener('transitionend', handler);
+                });
+                document.body.style.overflow = '';
+            }
+
+            if(loginTrigger) {
+                loginTrigger.addEventListener('click', (e) => { e.preventDefault(); openModal('loginForm'); });
+            }
+            if(signupTrigger) {
+                signupTrigger.addEventListener('click', (e) => { e.preventDefault(); openModal('signupForm'); });
+            }
+            if(closeBtn) closeBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('is-active')) closeModal(); });
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const formId = btn.dataset.authForm;
+                    // No need to call openModal again, just switch tabs and forms
+                    tabBtns.forEach(b => b.classList.remove('is-active'));
+                    btn.classList.add('is-active');
+                    
+                    forms.forEach(form => form.classList.remove('is-active'));
+                    const targetForm = document.getElementById(formId);
+                    if (targetForm) {
+                        targetForm.classList.add('is-active');
+                         const firstInput = targetForm.querySelector('input:not([type="hidden"]), button:not(.auth-modal-close)');
+                        if(firstInput) firstInput.focus();
+                    }
+                });
+            });
+        });
+
+        // Handle Signup
+        const signupForm = document.getElementById('signupForm');
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                alert('Account created successfully!');
+                console.log('User:', userCredential.user);
+            } catch (error) {
+                alert(error.message);
+            }
+        });
+
+        // Handle Login
+        const loginForm = document.getElementById('loginForm');
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                alert('Logged in successfully!');
+                console.log('User:', userCredential.user);
+            } catch (error) {
+                alert(error.message);
+            }
+        });
+
+        // Handle Logout (Optional)
+        const logoutButton = document.getElementById('logoutButton'); // Add a logout button in your UI
+        if (logoutButton) {
+            logoutButton.addEventListener('click', async () => {
+                try {
+                    await signOut(auth);
+                    alert('Logged out successfully!');
+                } catch (error) {
+                    alert(error.message);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
