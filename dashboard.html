@@ -658,38 +658,16 @@
                                 <h2>ربط قنواتك الكونية</h2>
                             </div>
                             <div class="account-connection-list">
-                                <div class="account-card">
+                                <!-- Keep only this Instagram card and add the IDs -->
+                                <div class="account-card" id="instagramAccountCard">
                                     <i class="fab fa-instagram account-icon" style="color: #E1306C;"></i>
                                     <div class="account-info">
                                         <h4>إنستغرام</h4>
-                                        <p class="status-disconnected">غير متصل</p>
+                                        <p id="instagramStatus" class="status-disconnected">غير متصل</p>
                                     </div>
-                                    <button class="btn-app btn-app-outline">ربط الحساب</button>
+                                    <button class="btn-app btn-app-outline" id="connectInstagramBtn">ربط الحساب</button>
                                 </div>
-                                <div class="account-card">
-                                    <i class="fab fa-facebook-messenger account-icon" style="color: #0084FF;"></i>
-                                    <div class="account-info">
-                                        <h4>فيسبوك ماسنجر</h4>
-                                         <p class="status-connected">متصل: <span>متجري الرائع</span></p>
-                                    </div>
-                                     <button class="btn-app btn-app-manage">إدارة</button>
-                                </div>
-                                <div class="account-card">
-                                    <i class="fab fa-whatsapp account-icon" style="color: #25D366;"></i>
-                                    <div class="account-info">
-                                        <h4>واتساب للأعمال</h4>
-                                        <p class="status-disconnected">غير متصل</p>
-                                    </div>
-                                     <button class="btn-app btn-app-outline">ربط الحساب</button>
-                                </div>
-                                 <div class="account-card">
-                                    <i class="fas fa-globe account-icon" style="color: var(--gradient-end);"></i>
-                                    <div class="account-info">
-                                        <h4>موقعك الإلكتروني</h4>
-                                        <p class="status-pending">الإعداد معلق</p>
-                                    </div>
-                                     <button class="btn-app btn-app-outline">إعداد</button>
-                                </div>
+                                <!-- ... Other account cards ... -->
                             </div>
                         </section>
 
@@ -741,8 +719,10 @@
         <i class="fas fa-magic"></i>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
+
+
+   
+    <script>document.addEventListener('DOMContentLoaded', () => {
             const sidebar = document.getElementById('appSidebar');
             const sidebarToggle = document.getElementById('sidebarToggle');
             const systemToggleSwitch = document.getElementById('systemToggleSwitch');
@@ -777,7 +757,139 @@
                     // document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
                 });
             });
+
+            const YOUR_APP_ID = '1323436732086944'; 
+            const connectBtn = document.getElementById('connectInstagramBtn');
+            const instagramStatus = document.getElementById('instagramStatus');
+
+            const modal = document.getElementById('pagesModal');
+            const modalCloseBtn = document.getElementById('modalCloseBtn');
+            const modalLoader = document.getElementById('modalLoader');
+            const modalPageList = document.getElementById('modalPageList');
+            const modalStatus = document.getElementById('modalStatus');
+
+            // --- Load Facebook SDK ---
+            window.fbAsyncInit = function() {
+                FB.init({
+                    appId: YOUR_APP_ID,
+                    cookie: true,
+                    xfbml: true,
+                    version: 'v19.0'
+                });
+            };
+            (function(d, s, id){
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {return;}
+                js = d.createElement(s); js.id = id;
+                js.src = "https://connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+            
+            // --- Event Listeners ---
+            connectBtn.addEventListener('click', handleConnectClick);
+            modalCloseBtn.addEventListener('click', () => modal.style.display = 'none');
+
+            // --- Main Logic Functions ---
+            function handleConnectClick() {
+                connectBtn.textContent = 'جاري الاتصال...';
+                connectBtn.disabled = true;
+
+                const requiredPermissions = 'pages_show_list,instagram_basic,instagram_manage_messages,pages_read_engagement';
+                
+                FB.login(function(response) {
+                    if (response.authResponse) {
+                        // User is logged in and authorized
+                        openPagesModal();
+                        fetchInstagramPages(response.authResponse.accessToken);
+                    } else {
+                        // User cancelled login or did not fully authorize
+                        alert('فشل تسجيل الدخول. يرجى السماح بالأذونات المطلوبة.');
+                        resetConnectButton();
+                    }
+                }, { scope: requiredPermissions });
+            }
+            
+            function openPagesModal() {
+                modal.style.display = 'flex';
+                modalLoader.style.display = 'block';
+                modalPageList.innerHTML = '';
+                modalStatus.textContent = '';
+            }
+
+            function fetchInstagramPages(userAccessToken) {
+                FB.api(
+                    '/me/accounts',
+                    { fields: 'name,access_token,instagram_business_account{name,username,profile_picture_url}', access_token: userAccessToken },
+                    function(response) {
+                        modalLoader.style.display = 'none';
+                        if (response && !response.error) {
+                            const igPages = response.data.filter(page => page.instagram_business_account);
+                            if (igPages.length > 0) {
+                                displayPagesInModal(igPages);
+                            } else {
+                                modalStatus.textContent = 'لم يتم العثور على حسابات إنستغرام للأعمال. يرجى التأكد من أن حسابك هو حساب أعمال ومتصل بصفحة فيسبوك.';
+                            }
+                        } else {
+                            modalStatus.textContent = 'خطأ في جلب الصفحات: ' + response.error.message;
+                        }
+                    }
+                );
+            }
+
+            function displayPagesInModal(pages) {
+                pages.forEach(page => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <div>
+                            <strong class="page-name">${page.instagram_business_account.name}</strong><br>
+                            <span class="page-username">@${page.instagram_business_account.username}</span>
+                        </div>
+                    `;
+                    const selectBtn = document.createElement('button');
+                    selectBtn.textContent = 'اختر';
+                    selectBtn.className = 'btn-app btn-app-secondary';
+                    selectBtn.onclick = () => {
+                        modalStatus.textContent = `جاري ربط @${page.instagram_business_account.username}...`;
+                        subscribePageToApp(page.id, page.access_token, page.instagram_business_account.username);
+                    };
+                    li.appendChild(selectBtn);
+                    modalPageList.appendChild(li);
+                });
+            }
+
+            function subscribePageToApp(pageId, pageAccessToken, igUsername) {
+                FB.api(
+                    `/${pageId}/subscribed_apps`,
+                    'post',
+                    { subscribed_fields: ['messages'], access_token: pageAccessToken },
+                    function(response) {
+                        if (response && response.success) {
+                            modal.style.display = 'none';
+                            updateDashboardToConnected(igUsername);
+                            alert('تم ربط الصفحة بنجاح!');
+                        } else {
+                            modalStatus.innerHTML = 'خطأ: لم نتمكن من ربط الصفحة. ' + (response.error ? response.error.message : '');
+                        }
+                    }
+                );
+            }
+            
+            function updateDashboardToConnected(igUsername) {
+                instagramStatus.textContent = `متصل: @${igUsername}`;
+                instagramStatus.className = 'status-connected';
+                connectBtn.textContent = 'إدارة';
+                connectBtn.className = 'btn-app btn-app-manage'; // Change style to green "manage" button
+                connectBtn.disabled = false;
+                // Optional: Change button functionality to manage settings
+                connectBtn.onclick = () => { alert('إدارة إعدادات إنستغرام (قيد الإنشاء)!'); }; 
+            }
+            
+            function resetConnectButton() {
+                connectBtn.textContent = 'ربط الحساب';
+                connectBtn.disabled = false;
+            }
         });
+        
     </script>
 
     <script type="module">
